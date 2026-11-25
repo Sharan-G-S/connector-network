@@ -1,0 +1,1019 @@
+{
+  "irVersion": "cn-ir/1",
+  "title": "Tasks API",
+  "apiVersion": "2.0.0",
+  "servers": [
+    "https://api.tasks.example/v1"
+  ],
+  "operations": [
+    {
+      "id": "op_createComment",
+      "resource": "comments",
+      "method": "POST",
+      "path": "/comments",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "201",
+          "type": "Comment",
+          "ref": "Comment",
+          "description": "The created comment."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Add a comment to a task.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_createProject",
+      "resource": "projects",
+      "method": "POST",
+      "path": "/projects",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "201",
+          "type": "Project",
+          "ref": "Project",
+          "description": "The created project."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Create a project.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_createTag",
+      "resource": "tags",
+      "method": "POST",
+      "path": "/tags",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "201",
+          "type": "Tag",
+          "ref": "Tag",
+          "description": "The created tag."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Create a tag.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_createTask",
+      "resource": "tasks",
+      "method": "POST",
+      "path": "/tasks",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "due_date",
+          "type": "datetime",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "201",
+          "type": "Task",
+          "ref": "Task",
+          "description": "The created task."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Create a task in a project.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_deleteComment",
+      "resource": "comments",
+      "method": "DELETE",
+      "path": "/comments/{comment_id}",
+      "input": [
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "204",
+          "type": "none",
+          "description": "Deleted."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Delete a comment.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_deleteProject",
+      "resource": "projects",
+      "method": "DELETE",
+      "path": "/projects/{project_id}",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "204",
+          "type": "none",
+          "description": "Deleted."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Delete a project.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_deleteTag",
+      "resource": "tags",
+      "method": "DELETE",
+      "path": "/tags/{tag_id}",
+      "input": [
+        {
+          "name": "tag_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "204",
+          "type": "none",
+          "description": "Deleted."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Delete a tag.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_deleteTask",
+      "resource": "tasks",
+      "method": "DELETE",
+      "path": "/tasks/{task_id}",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "204",
+          "type": "none",
+          "description": "Deleted."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Delete a task.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_getComment",
+      "resource": "comments",
+      "method": "GET",
+      "path": "/comments/{comment_id}",
+      "input": [
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "Comment",
+          "ref": "Comment",
+          "description": "The comment."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Fetch one comment by id.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_getProject",
+      "resource": "projects",
+      "method": "GET",
+      "path": "/projects/{project_id}",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "Project",
+          "ref": "Project",
+          "description": "The project."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Fetch one project by id.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_getTask",
+      "resource": "tasks",
+      "method": "GET",
+      "path": "/tasks/{task_id}",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "Task",
+          "ref": "Task",
+          "description": "The task."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Fetch one task by id.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_getUser",
+      "resource": "users",
+      "method": "GET",
+      "path": "/users/{user_id}",
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "User",
+          "ref": "User",
+          "description": "The user."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Fetch one user by id.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_listComments",
+      "resource": "comments",
+      "method": "GET",
+      "path": "/comments",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "query"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "CommentPage",
+          "ref": "CommentPage",
+          "description": "A page of comments."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "List comments for a task.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_listProjects",
+      "resource": "projects",
+      "method": "GET",
+      "path": "/projects",
+      "input": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "ProjectPage",
+          "ref": "ProjectPage",
+          "description": "A page of projects."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "List projects, optionally filtered by status.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_listTags",
+      "resource": "tags",
+      "method": "GET",
+      "path": "/tags",
+      "input": [],
+      "output": [
+        {
+          "status": "200",
+          "type": "TagPage",
+          "ref": "TagPage",
+          "description": "A page of tags."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "List tags.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_listTasks",
+      "resource": "tasks",
+      "method": "GET",
+      "path": "/tasks",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "TaskPage",
+          "ref": "TaskPage",
+          "description": "A page of tasks."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "List tasks, filtered by project, status, or assignee.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_listUsers",
+      "resource": "users",
+      "method": "GET",
+      "path": "/users",
+      "input": [
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "query"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "query"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "UserPage",
+          "ref": "UserPage",
+          "description": "A page of users."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "List users.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_updateProject",
+      "resource": "projects",
+      "method": "PATCH",
+      "path": "/projects/{project_id}",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "Project",
+          "ref": "Project",
+          "description": "The updated project."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Update a project.",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    },
+    {
+      "id": "op_updateTask",
+      "resource": "tasks",
+      "method": "PATCH",
+      "path": "/tasks/{task_id}",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "path"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "due_date",
+          "type": "datetime",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "Task",
+          "ref": "Task",
+          "description": "The updated task."
+        }
+      ],
+      "auth": "bearer",
+      "trust": "declared",
+      "sourceType": "openapi",
+      "summary": "Update a task (status, assignee, due date, ...).",
+      "provenance": {
+        "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+        "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b"
+      }
+    }
+  ],
+  "schemas": {
+    "Project": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "status",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NewProject": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "UpdateProject": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "ProjectPage": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Project"
+          }
+        },
+        "next_cursor": {
+          "type": "string"
+        }
+      }
+    },
+    "Task": {
+      "type": "object",
+      "required": [
+        "id",
+        "project_id",
+        "title",
+        "status",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "project_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "assignee_id": {
+          "type": "string"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NewTask": {
+      "type": "object",
+      "required": [
+        "project_id",
+        "title"
+      ],
+      "properties": {
+        "project_id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "assignee_id": {
+          "type": "string"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "UpdateTask": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "assignee_id": {
+          "type": "string"
+        },
+        "due_date": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "TaskPage": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Task"
+          }
+        },
+        "next_cursor": {
+          "type": "string"
+        }
+      }
+    },
+    "Comment": {
+      "type": "object",
+      "required": [
+        "id",
+        "task_id",
+        "author_id",
+        "body",
+        "created_at"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "task_id": {
+          "type": "string"
+        },
+        "author_id": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "NewComment": {
+      "type": "object",
+      "required": [
+        "task_id",
+        "body"
+      ],
+      "properties": {
+        "task_id": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        }
+      }
+    },
+    "CommentPage": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Comment"
+          }
+        },
+        "next_cursor": {
+          "type": "string"
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "id",
+        "name",
+        "email"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "UserPage": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/User"
+          }
+        },
+        "next_cursor": {
+          "type": "string"
+        }
+      }
+    },
+    "Tag": {
+      "type": "object",
+      "required": [
+        "id",
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "NewTag": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "color": {
+          "type": "string"
+        }
+      }
+    },
+    "TagPage": {
+      "type": "object",
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/components/schemas/Tag"
+          }
+        },
+        "next_cursor": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "hash": "sha256:28794483c9ea84f3ae3cc0bf69c93ecb2fd20ce7aff4014fbbf73cd62403a95e",
+  "provenance": {
+    "sourceKind": "github",
+    "origin": "github.com/DCode-v05/Test",
+    "sha": "c8ef95d0f476193977293ea9ed6254fe9115e7ab",
+    "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b",
+    "pinnedAt": "2026-06-08T10:35:19.007Z",
+    "acquirer": "cn/0.1.0 (github)"
+  },
+  "diagnostics": []
+}

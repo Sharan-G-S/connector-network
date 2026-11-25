@@ -1,0 +1,12 @@
+{
+  "name": "sdk-python-cli",
+  "version": "0.0.0",
+  "description": "sdk-python CLI (generated)",
+  "type": "module",
+  "bin": {
+    "sdk": "./cli.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

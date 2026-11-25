@@ -1,0 +1,639 @@
+{
+  "irVersion": "cn-ir/1",
+  "title": "sdk-typescript",
+  "apiVersion": "0.0.0",
+  "servers": [],
+  "operations": [
+    {
+      "id": "op_comments_create",
+      "resource": "comments_create",
+      "method": "POST",
+      "path": "/comments_create",
+      "input": [
+        {
+          "name": "taskId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Add a comment to a task.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_comments_get",
+      "resource": "comments_get",
+      "method": "POST",
+      "path": "/comments_get",
+      "input": [
+        {
+          "name": "commentId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Fetch one comment by id.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_comments_list",
+      "resource": "comments_list",
+      "method": "POST",
+      "path": "/comments_list",
+      "input": [
+        {
+          "name": "taskId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "List comments for a task.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_comments_remove",
+      "resource": "comments_remove",
+      "method": "POST",
+      "path": "/comments_remove",
+      "input": [
+        {
+          "name": "commentId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Delete a comment.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_projects_create",
+      "resource": "projects_create",
+      "method": "POST",
+      "path": "/projects_create",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Create a project.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_projects_get",
+      "resource": "projects_get",
+      "method": "POST",
+      "path": "/projects_get",
+      "input": [
+        {
+          "name": "projectId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Fetch one project by id.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_projects_list",
+      "resource": "projects_list",
+      "method": "POST",
+      "path": "/projects_list",
+      "input": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "List projects, optionally filtered by status.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_projects_remove",
+      "resource": "projects_remove",
+      "method": "POST",
+      "path": "/projects_remove",
+      "input": [
+        {
+          "name": "projectId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Delete a project.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_projects_update",
+      "resource": "projects_update",
+      "method": "POST",
+      "path": "/projects_update",
+      "input": [
+        {
+          "name": "projectId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Update a project.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tags_create",
+      "resource": "tags_create",
+      "method": "POST",
+      "path": "/tags_create",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Create a tag.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tags_list",
+      "resource": "tags_list",
+      "method": "POST",
+      "path": "/tags_list",
+      "input": [],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "List tags.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tags_remove",
+      "resource": "tags_remove",
+      "method": "POST",
+      "path": "/tags_remove",
+      "input": [
+        {
+          "name": "tagId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Delete a tag.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tasks_create",
+      "resource": "tasks_create",
+      "method": "POST",
+      "path": "/tasks_create",
+      "input": [
+        {
+          "name": "projectId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "assigneeId",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Create a task in a project.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tasks_get",
+      "resource": "tasks_get",
+      "method": "POST",
+      "path": "/tasks_get",
+      "input": [
+        {
+          "name": "taskId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Fetch one task by id.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tasks_list",
+      "resource": "tasks_list",
+      "method": "POST",
+      "path": "/tasks_list",
+      "input": [
+        {
+          "name": "projectId",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assigneeId",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "List tasks, filtered by project, status, or assignee.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tasks_remove",
+      "resource": "tasks_remove",
+      "method": "POST",
+      "path": "/tasks_remove",
+      "input": [
+        {
+          "name": "taskId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Delete a task.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_tasks_update",
+      "resource": "tasks_update",
+      "method": "POST",
+      "path": "/tasks_update",
+      "input": [
+        {
+          "name": "taskId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assigneeId",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Update a task.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_users_get",
+      "resource": "users_get",
+      "method": "POST",
+      "path": "/users_get",
+      "input": [
+        {
+          "name": "userId",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "Fetch one user by id.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    },
+    {
+      "id": "op_users_list",
+      "resource": "users_list",
+      "method": "POST",
+      "path": "/users_list",
+      "input": [
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "summary": "List users.",
+      "provenance": {
+        "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320"
+      }
+    }
+  ],
+  "schemas": {},
+  "hash": "sha256:614781b838f78cbf5a8a7fc1898582e9cbcaaefc4e82572c5182a22491c53daf",
+  "provenance": {
+    "sourceKind": "sdk",
+    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-typescript",
+    "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320",
+    "pinnedAt": "2026-06-08T10:35:19.115Z",
+    "acquirer": "cn/0.1.0 (sdk)"
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "acq.sdk.inferred",
+      "message": "SDK contract reverse-derived from typescript; lower trust signal"
+    }
+  ]
+}

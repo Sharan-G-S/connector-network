@@ -1,0 +1,631 @@
+{
+  "type": "sdk",
+  "document": {
+    "openapi": "3.1.0",
+    "info": {
+      "title": "sdk-typescript",
+      "version": "0.0.0",
+      "x-cn-note": "reverse-derived from sdk; paths and verbs are synthesized"
+    },
+    "paths": {
+      "/projects_list": {
+        "post": {
+          "operationId": "projects_list",
+          "x-cn-derived": true,
+          "summary": "List projects, optionally filtered by status.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "number"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/projects_create": {
+        "post": {
+          "operationId": "projects_create",
+          "x-cn-derived": true,
+          "summary": "Create a project.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/projects_get": {
+        "post": {
+          "operationId": "projects_get",
+          "x-cn-derived": true,
+          "summary": "Fetch one project by id.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projectId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "projectId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/projects_update": {
+        "post": {
+          "operationId": "projects_update",
+          "x-cn-derived": true,
+          "summary": "Update a project.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projectId": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "projectId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/projects_remove": {
+        "post": {
+          "operationId": "projects_remove",
+          "x-cn-derived": true,
+          "summary": "Delete a project.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projectId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "projectId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tasks_list": {
+        "post": {
+          "operationId": "tasks_list",
+          "x-cn-derived": true,
+          "summary": "List tasks, filtered by project, status, or assignee.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projectId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "assigneeId": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tasks_create": {
+        "post": {
+          "operationId": "tasks_create",
+          "x-cn-derived": true,
+          "summary": "Create a task in a project.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "projectId": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "assigneeId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "projectId",
+                    "title"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tasks_get": {
+        "post": {
+          "operationId": "tasks_get",
+          "x-cn-derived": true,
+          "summary": "Fetch one task by id.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "taskId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tasks_update": {
+        "post": {
+          "operationId": "tasks_update",
+          "x-cn-derived": true,
+          "summary": "Update a task.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "assigneeId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "taskId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tasks_remove": {
+        "post": {
+          "operationId": "tasks_remove",
+          "x-cn-derived": true,
+          "summary": "Delete a task.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "taskId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/comments_list": {
+        "post": {
+          "operationId": "comments_list",
+          "x-cn-derived": true,
+          "summary": "List comments for a task.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "taskId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/comments_create": {
+        "post": {
+          "operationId": "comments_create",
+          "x-cn-derived": true,
+          "summary": "Add a comment to a task.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "taskId": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "taskId",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/comments_get": {
+        "post": {
+          "operationId": "comments_get",
+          "x-cn-derived": true,
+          "summary": "Fetch one comment by id.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "commentId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "commentId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/comments_remove": {
+        "post": {
+          "operationId": "comments_remove",
+          "x-cn-derived": true,
+          "summary": "Delete a comment.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "commentId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "commentId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/users_list": {
+        "post": {
+          "operationId": "users_list",
+          "x-cn-derived": true,
+          "summary": "List users.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "limit": {
+                      "type": "number"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/users_get": {
+        "post": {
+          "operationId": "users_get",
+          "x-cn-derived": true,
+          "summary": "Fetch one user by id.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "userId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tags_list": {
+        "post": {
+          "operationId": "tags_list",
+          "x-cn-derived": true,
+          "summary": "List tags.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tags_create": {
+        "post": {
+          "operationId": "tags_create",
+          "x-cn-derived": true,
+          "summary": "Create a tag.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/tags_remove": {
+        "post": {
+          "operationId": "tags_remove",
+          "x-cn-derived": true,
+          "summary": "Delete a tag.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tagId": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "tagId"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      }
+    },
+    "x-cn-source": "sdk",
+    "x-cn-trust": "inferred"
+  },
+  "provenance": {
+    "sourceKind": "sdk",
+    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-typescript",
+    "pinnedAt": "2026-06-08T10:35:19.115Z",
+    "contentHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320",
+    "trust": "inferred",
+    "acquirer": "cn/0.1.0 (sdk)"
+  },
+  "diagnostics": [
+    {
+      "severity": "warning",
+      "code": "acq.sdk.inferred",
+      "message": "SDK contract reverse-derived from typescript; lower trust signal"
+    }
+  ]
+}

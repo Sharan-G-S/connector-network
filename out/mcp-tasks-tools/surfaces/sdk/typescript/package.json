@@ -1,0 +1,17 @@
+{
+  "name": "tasks-mcp-sdk",
+  "version": "2.0.0",
+  "description": "Tasks MCP TypeScript SDK (generated)",
+  "type": "module",
+  "main": "./src/index.ts",
+  "types": "./src/index.ts",
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

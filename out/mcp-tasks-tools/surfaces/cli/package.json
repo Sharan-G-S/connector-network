@@ -1,0 +1,12 @@
+{
+  "name": "tasks-mcp-cli",
+  "version": "2.0.0",
+  "description": "Tasks MCP CLI (generated)",
+  "type": "module",
+  "bin": {
+    "tasks": "./cli.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

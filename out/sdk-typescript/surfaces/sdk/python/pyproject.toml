@@ -1,0 +1,12 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sdk-typescript-sdk"
+version = "0.0.0"
+description = "sdk-typescript Python SDK (generated)"
+requires-python = ">=3.8"
+
+[tool.setuptools.packages.find]
+include = ["sdk_typescript_sdk*"]

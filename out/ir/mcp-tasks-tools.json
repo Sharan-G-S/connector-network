@@ -1,0 +1,645 @@
+{
+  "irVersion": "cn-ir/1",
+  "title": "Tasks MCP",
+  "apiVersion": "2.0.0",
+  "servers": [],
+  "operations": [
+    {
+      "id": "op_create_comment",
+      "resource": "create_comment",
+      "method": "POST",
+      "path": "/create_comment",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Add a comment to a task.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_create_project",
+      "resource": "create_project",
+      "method": "POST",
+      "path": "/create_project",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Create a project.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_create_tag",
+      "resource": "create_tag",
+      "method": "POST",
+      "path": "/create_tag",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Create a tag.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_create_task",
+      "resource": "create_task",
+      "method": "POST",
+      "path": "/create_task",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "due_date",
+          "type": "datetime",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Create a task in a project.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_delete_comment",
+      "resource": "delete_comment",
+      "method": "POST",
+      "path": "/delete_comment",
+      "input": [
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Delete a comment.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_delete_project",
+      "resource": "delete_project",
+      "method": "POST",
+      "path": "/delete_project",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Delete a project.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_delete_tag",
+      "resource": "delete_tag",
+      "method": "POST",
+      "path": "/delete_tag",
+      "input": [
+        {
+          "name": "tag_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Delete a tag.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_delete_task",
+      "resource": "delete_task",
+      "method": "POST",
+      "path": "/delete_task",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Delete a task.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_get_comment",
+      "resource": "get_comment",
+      "method": "POST",
+      "path": "/get_comment",
+      "input": [
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Fetch one comment by id.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_get_project",
+      "resource": "get_project",
+      "method": "POST",
+      "path": "/get_project",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Fetch one project by id.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_get_task",
+      "resource": "get_task",
+      "method": "POST",
+      "path": "/get_task",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Fetch one task by id.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_get_user",
+      "resource": "get_user",
+      "method": "POST",
+      "path": "/get_user",
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Fetch one user by id.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_list_comments",
+      "resource": "list_comments",
+      "method": "POST",
+      "path": "/list_comments",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "List comments for a task.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_list_projects",
+      "resource": "list_projects",
+      "method": "POST",
+      "path": "/list_projects",
+      "input": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "List projects, optionally filtered by status.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_list_tags",
+      "resource": "list_tags",
+      "method": "POST",
+      "path": "/list_tags",
+      "input": [],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "List tags.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_list_tasks",
+      "resource": "list_tasks",
+      "method": "POST",
+      "path": "/list_tasks",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "List tasks, filtered by project, status, or assignee.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_list_users",
+      "resource": "list_users",
+      "method": "POST",
+      "path": "/list_users",
+      "input": [
+        {
+          "name": "limit",
+          "type": "integer",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "List users.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_update_project",
+      "resource": "update_project",
+      "method": "POST",
+      "path": "/update_project",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Update a project.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    },
+    {
+      "id": "op_update_task",
+      "resource": "update_task",
+      "method": "POST",
+      "path": "/update_task",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "mcp",
+      "summary": "Update a task.",
+      "provenance": {
+        "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e"
+      }
+    }
+  ],
+  "schemas": {},
+  "hash": "sha256:14b922e2f4477fd6bcafe5a3619a5136c004a5a2f93d523fde653eb45e02d716",
+  "provenance": {
+    "sourceKind": "mcp",
+    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\mcp\\tasks-tools.json",
+    "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e",
+    "pinnedAt": "2026-06-08T10:35:19.203Z",
+    "acquirer": "cn/0.1.0 (mcp)"
+  },
+  "diagnostics": []
+}

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Hub, Two Directions — How We Made API Tooling Bidirectional</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#161B2E;          /* deep ink navy */
+    --paper:#F3F5F9;        /* cool graph-paper white */
+    --card:#FFFFFF;
+    --blueprint:#1E56C8;    /* blueprint blue */
+    --proof:#0B7A53;        /* verified green */
+    --warn:#A14E12;         /* inferred amber */
+    --muted:#5A6178;
+    --line:#D6DBE6;
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --sans:'IBM Plex Sans',system-ui,sans-serif;
+    --disp:'Space Grotesk',var(--sans);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--sans);color:var(--ink);background:var(--paper);
+    background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);
+    background-size:32px 32px;background-position:center top;
+    line-height:1.6;font-size:16px;
+  }
+  .page{max-width:880px;margin:0 auto;padding:56px 28px 80px}
+
+  /* ---------- header ---------- */
+  .eyebrow{font-family:var(--mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--blueprint);display:flex;align-items:center;gap:12px}
+  .eyebrow::after{content:"";flex:1;height:1px;background:var(--blueprint);opacity:.35}
+  h1{font-family:var(--disp);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.08;margin:14px 0 12px;letter-spacing:-.01em}
+  h1 .arrowed{color:var(--blueprint)}
+  .lede{font-size:18px;color:var(--muted);max-width:62ch}
+  .lede strong{color:var(--ink)}
+
+  /* ---------- sections ---------- */
+  section{margin-top:52px}
+  .sec-label{font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+  h2{font-family:var(--disp);font-weight:600;font-size:24px;line-height:1.25;margin-bottom:14px}
+  p{margin-bottom:14px;max-width:70ch}
+  p:last-child{margin-bottom:0}
+
+  /* ---------- claim / proof theorem blocks ---------- */
+  .claim{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--blueprint);border-radius:6px;padding:22px 24px;margin:22px 0}
+  .claim-tag{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blueprint);margin-bottom:6px}
+  .claim-stmt{font-family:var(--disp);font-weight:600;font-size:18px;line-height:1.45;margin-bottom:14px}
+  .proof-tag{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--proof);margin:14px 0 6px;display:flex;align-items:center;gap:8px}
+  .proof-tag::before{content:"";width:8px;height:8px;background:var(--proof);border-radius:2px}
+  .qed{font-family:var(--mono);color:var(--proof);font-weight:600;text-align:right;margin-top:10px;font-size:14px}
+
+  /* ---------- code ---------- */
+  pre{background:var(--ink);color:#E8EBF4;font-family:var(--mono);font-size:13.5px;line-height:1.65;padding:18px 20px;border-radius:6px;overflow-x:auto;margin:14px 0}
+  pre .c{color:#7E89A8}
+  pre .g{color:#5BD6A4}
+  pre .b{color:#7FA8F2}
+  pre .y{color:#E8B36A}
+  code.inline{font-family:var(--mono);font-size:.9em;background:#E6EAF3;padding:1px 6px;border-radius:4px;white-space:nowrap}
+
+  /* ---------- diagrams ---------- */
+  .figure{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:22px;margin:18px 0}
+  .figure svg{width:100%;height:auto;display:block}
+  .figcap{font-family:var(--mono);font-size:12px;color:var(--muted);margin-top:12px;text-align:center}
+
+  /* ---------- comparison table ---------- */
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:6px;overflow:hidden;font-size:14.5px;margin:18px 0}
+  th{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;text-align:left;padding:12px 16px;background:var(--ink);color:#E8EBF4;font-weight:500}
+  td{padding:12px 16px;border-top:1px solid var(--line);vertical-align:top}
+  td:first-child{font-weight:600;white-space:nowrap}
+  .them{color:var(--muted)}
+  .us{color:var(--ink)}
+  .us b{color:var(--blueprint)}
+
+  /* ---------- recipe ---------- */
+  .recipe{background:var(--ink);color:#E8EBF4;border-radius:6px;padding:26px 28px;margin-top:18px}
+  .recipe h3{font-family:var(--disp);font-size:18px;font-weight:600;margin-bottom:14px;color:#fff}
+  .recipe ol{list-style:none;counter-reset:r}
+  .recipe li{counter-increment:r;display:flex;gap:14px;padding:9px 0;border-top:1px solid rgba(255,255,255,.12);font-size:15.5px}
+  .recipe li:first-child{border-top:none;padding-top:0}
+  .recipe li::before{content:counter(r);font-family:var(--mono);color:#7FA8F2;font-weight:600;min-width:18px}
+  .recipe .result{margin-top:14px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.3);font-family:var(--mono);font-size:14px;color:#5BD6A4}
+
+  .footnote{margin-top:46px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:14.5px;max-width:70ch}
+  .footnote b{color:var(--ink)}
+
+  .badge{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;padding:2px 8px;border-radius:3px;vertical-align:middle}
+  .badge.inferred{background:#F6E8D8;color:var(--warn);border:1px solid #E3C9A8}
+
+  @media print{
+    body{background:#fff}
+    .page{padding:24px}
+    pre{white-space:pre-wrap}
+  }
+  @media (max-width:640px){
+    body{font-size:15px}
+    .claim{padding:18px}
+    th,td{padding:10px 12px}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="eyebrow">Architecture note · API tooling</div>
+    <h1>One hub, two directions:<br>how we made spec <span class="arrowed">↔</span> SDK <span class="arrowed">↔</span> MCP bidirectional</h1>
+    <p class="lede">Stainless and Fern spent ~2 years building <strong>one-way</strong> generators (spec → SDK). We built <strong>any-to-any</strong> conversion in weeks. This document explains the single architectural trick that makes it possible, and proves the three claims behind it.</p>
+  </header>
+
+  <!-- ================= 1. WHY THEY'RE ONE-WAY ================= -->
+  <section>
+    <div class="sec-label">§1 · Background</div>
+    <h2>Why the incumbents are one-way (a design choice, not a failure)</h2>
+    <p>Stainless and Fern solve a specific business problem: <em>a customer brings an OpenAPI spec; the product turns it into polished, idiomatic SDKs.</em> Nobody ever paid them to go the other direction. Three architectural consequences follow:</p>
+    <div class="figure">
+      <svg viewBox="0 0 800 130" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="One-way pipeline: spec to IR to SDK to MCP">
+        <defs>
+          <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8" fill="none" stroke="#5A6178" stroke-width="1.6"/></marker>
+        </defs>
+        <g font-family="'IBM Plex Mono',monospace" font-size="14">
+          <rect x="20" y="40" width="140" height="50" rx="5" fill="#fff" stroke="#161B2E" stroke-width="1.5"/>
+          <text x="90" y="70" text-anchor="middle" fill="#161B2E">OpenAPI spec</text>
+          <line x1="160" y1="65" x2="230" y2="65" stroke="#5A6178" stroke-width="1.6" marker-end="url(#arr)"/>
+          <rect x="235" y="40" width="170" height="50" rx="5" fill="#161B2E"/>
+          <text x="320" y="70" text-anchor="middle" fill="#fff">output-shaped IR</text>
+          <line x1="405" y1="65" x2="475" y2="65" stroke="#5A6178" stroke-width="1.6" marker-end="url(#arr)"/>
+          <rect x="480" y="40" width="110" height="50" rx="5" fill="#fff" stroke="#161B2E" stroke-width="1.5"/>
+          <text x="535" y="70" text-anchor="middle" fill="#161B2E">SDK ×9</text>
+          <line x1="590" y1="65" x2="660" y2="65" stroke="#5A6178" stroke-width="1.6" marker-end="url(#arr)"/>
+          <rect x="665" y="40" width="110" height="50" rx="5" fill="#fff" stroke="#161B2E" stroke-width="1.5"/>
+          <text x="720" y="70" text-anchor="middle" fill="#161B2E">MCP</text>
+          <text x="400" y="118" text-anchor="middle" fill="#5A6178" font-size="12">every arrow points right · no reader exists for any box</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 1 — The incumbent pipeline is a one-way compiler.</div>
+    </div>
+    <p><strong>1. The IR is output-shaped.</strong> Their intermediate representation is packed with language-specific detail (naming conventions, pagination idioms, auth helpers) so the generated SDKs feel hand-written. It is a means to an end — optimized for <em>emitting</em> code, not for being read back.</p>
+    <p><strong>2. Only writers exist.</strong> Every component is of the form IR → output. There is no parser anywhere in the system that consumes an SDK or an MCP server and recovers an IR.</p>
+    <p><strong>3. MCP sits downstream of the SDK.</strong> Stainless builds its MCP server <em>from the generated TypeScript SDK</em>. MCP is therefore the last node in a directed chain — you can never travel MCP → SDK or MCP → spec.</p>
+  </section>
+
+  <!-- ================= 2. THE TRICK ================= -->
+  <section>
+    <div class="sec-label">§2 · The architecture</div>
+    <h2>The one trick: a neutral hub, with a reader <em>and</em> a writer per surface</h2>
+    <p>Pick <strong>one neutral middle format</strong> — plain OpenAPI 3.1 plus a tiny operation-list IR. It is <em>API-shaped</em>, not SDK-shaped: just operations, parameters, schemas, auth. Then, for every surface (spec, SDK, MCP), write two small pieces:</p>
+    <p style="font-family:var(--mono);font-size:15px"><b style="color:var(--blueprint)">reader</b>: surface → IR &nbsp;&nbsp;·&nbsp;&nbsp; <b style="color:var(--blueprint)">writer</b>: IR → surface</p>
+    <div class="figure">
+      <svg viewBox="0 0 800 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hub diagram: neutral IR in the center with bidirectional arrows to spec, SDK, and MCP">
+        <defs>
+          <marker id="arrB" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7" fill="none" stroke="#1E56C8" stroke-width="1.6"/></marker>
+          <marker id="arrG" markerWidth="9" markerHeight="9" refX="7" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7" fill="none" stroke="#0B7A53" stroke-width="1.6"/></marker>
+        </defs>
+        <g font-family="'IBM Plex Mono',monospace" font-size="14">
+          <!-- hub -->
+          <circle cx="400" cy="160" r="74" fill="#161B2E"/>
+          <text x="400" y="150" text-anchor="middle" fill="#fff" font-size="15" font-weight="600">NEUTRAL IR</text>
+          <text x="400" y="172" text-anchor="middle" fill="#7FA8F2" font-size="12">OpenAPI 3.1</text>
+          <text x="400" y="190" text-anchor="middle" fill="#7FA8F2" font-size="12">+ op-list</text>
+
+          <!-- spec node -->
+          <rect x="50" y="135" width="120" height="50" rx="5" fill="#fff" stroke="#161B2E" stroke-width="1.5"/>
+          <text x="110" y="165" text-anchor="middle" fill="#161B2E">Spec</text>
+          <line x1="170" y1="148" x2="322" y2="148" stroke="#1E56C8" stroke-width="1.6" marker-end="url(#arrB)"/>
+          <line x1="322" y1="172" x2="174" y2="172" stroke="#0B7A53" stroke-width="1.6" marker-end="url(#arrG)"/>
+          <text x="246" y="138" text-anchor="middle" fill="#1E56C8" font-size="11">reader</text>
+          <text x="246" y="192" text-anchor="middle" fill="#0B7A53" font-size="11">writer</text>
+
+          <!-- sdk node -->
+          <rect x="630" y="40" width="120" height="50" rx="5" fill="#fff" stroke="#161B2E" stroke-width="1.5"/>
+          <text x="690" y="70" text-anchor="middle" fill="#161B2E">SDK</text>
+          <line x1="640" y1="92" x2="468" y2="135" stroke="#1E56C8" stroke-width="1.6" marker-end="url(#arrB)"/>
+          <line x1="478" y1="118" x2="648" y2="76" stroke="#0B7A53" stroke-width="1.6" marker-end="url(#arrG)"/>
+          <text x="572" y="88" text-anchor="middle" fill="#1E56C8" font-size="11">reader</text>
+          <text x="556" y="129" text-anchor="middle" fill="#0B7A53" font-size="11">writer</text>
+
+          <!-- mcp node -->
+          <rect x="630" y="230" width="120" height="50" rx="5" fill="#fff" stroke="#161B2E" stroke-width="1.5"/>
+          <text x="690" y="260" text-anchor="middle" fill="#161B2E">MCP</text>
+          <line x1="640" y1="230" x2="468" y2="187" stroke="#1E56C8" stroke-width="1.6" marker-end="url(#arrB)"/>
+          <line x1="478" y1="204" x2="648" y2="246" stroke="#0B7A53" stroke-width="1.6" marker-end="url(#arrG)"/>
+          <text x="572" y="240" text-anchor="middle" fill="#1E56C8" font-size="11">reader</text>
+          <text x="552" y="200" text-anchor="middle" fill="#0B7A53" font-size="11">writer</text>
+
+          <text x="400" y="305" text-anchor="middle" fill="#5A6178" font-size="12">every surface gets both arrows · any reader composes with any writer</text>
+        </g>
+      </svg>
+      <div class="figcap">Fig. 2 — Hub-and-spoke with symmetric adapters. The incumbents only have the green arrows.</div>
+    </div>
+    <p>The big companies only have <strong>writers</strong>. The new idea is the <strong>readers</strong>: reverse-derive an IR from an existing SDK (parse the method signatures) or from an MCP server (read its tool schemas — they're already JSON Schema, which maps almost directly onto OpenAPI). Because the middle is neutral, any reader composes with any writer:</p>
+<pre>SDK-reader  + MCP-writer  =  SDK → MCP
+MCP-reader  + SDK-writer  =  MCP → SDK
+MCP-reader  + Spec-writer =  MCP → spec   <span class="c">// impossible in their architecture</span></pre>
+  </section>
+
+  <!-- ================= 3. PROOFS ================= -->
+  <section>
+    <div class="sec-label">§3 · Proofs</div>
+    <h2>Three claims, three proofs</h2>
+
+    <!-- CLAIM 1 -->
+    <div class="claim">
+      <div class="claim-tag">Claim 1 · Composability</div>
+      <div class="claim-stmt">With N surfaces, writing N readers + N writers yields all N × (N−1) directed conversions — with zero per-pair code.</div>
+      <div class="proof-tag">Proof</div>
+      <p>Let S = {spec, SDK, MCP, …} be the set of surfaces, |S| = N. For each s ∈ S we write exactly two functions:</p>
+<pre>read<sub>s</sub>  : s  → IR
+write<sub>s</sub> : IR → s</pre>
+      <p>Any directed conversion from surface a to surface b is the composition <code class="inline">write_b ∘ read_a</code>. Since every reader emits the same IR type and every writer consumes it, all N×(N−1) ordered pairs are covered by the 2N adapters. Cost is <strong>linear</strong> in surfaces; capability is <strong>quadratic</strong>.</p>
+      <p>Contrast: a point-to-point design (which is what "bolt MCP onto the TypeScript SDK" is) needs a bespoke converter per pair — O(N²) code — which is why incumbents never grew beyond one chain. With N = 3 we get 6 conversions from 6 adapters; adding a 4th surface (e.g. Postman collection) costs 2 more adapters and unlocks 6 new conversions. ∎</p>
+    </div>
+
+    <!-- CLAIM 2 -->
+    <div class="claim">
+      <div class="claim-tag">Claim 2 · Provable round-trips</div>
+      <div class="claim-stmt">If the IR is canonically serialized and hashed, "is the conversion lossless?" reduces to a one-line equality test — no manual QA.</div>
+      <div class="proof-tag">Proof</div>
+      <p>Make the IR <strong>deterministic</strong>: sort keys, normalize names, strip cosmetic data, serialize canonically, hash with SHA-256. Then for any conversion chain, recover the IR at the far end and compare hashes:</p>
+<pre><span class="c"># round-trip: SDK → IR → MCP → IR′</span>
+ir  = read_sdk(sdk)
+mcp = write_mcp(ir)
+ir2 = read_mcp(mcp)
+
+assert <span class="b">ir.hash</span> == <span class="b">ir2.hash</span>   <span class="g"># lossless ⇔ True</span></pre>
+      <p>Because canonical serialization is injective on IR content, <code class="inline">hash(ir) == hash(ir2)</code> ⟺ the two IRs contain identical API semantics (modulo negligible collision probability, ~2⁻¹²⁸ for SHA-256). Every API-shaped fact that left the hub came back. Determinism turns "lossless?" — normally a manual review of generated code — into a single boolean, runnable in CI on every commit, for every reader/writer pair, automatically. ∎</p>
+    </div>
+
+    <!-- CLAIM 3 -->
+    <div class="claim">
+      <div class="claim-tag">Claim 3 · Weeks, not years</div>
+      <div class="claim-stmt">The bidirectional core is genuinely small, because the two expensive things — output polish and perfect reverse fidelity — are exactly the things we deliberately don't build.</div>
+      <div class="proof-tag">Proof (by scope accounting)</div>
+      <table>
+        <tr><th>Workstream</th><th>Stainless / Fern (~2 yrs)</th><th>Us (~weeks)</th></tr>
+        <tr><td>Languages</td><td class="them">9 idiomatic SDK languages, each hand-tuned</td><td class="us">Small symmetric adapters per surface</td></tr>
+        <tr><td>Quality layer</td><td class="them">Auth flows, pagination, retries, streaming idioms</td><td class="us"><b>Skipped</b> — plumbing, not polish</td></tr>
+        <tr><td>Infra</td><td class="them">Hosted build farm, versioning, publishing</td><td class="us"><b>Skipped</b></td></tr>
+        <tr><td>Reverse fidelity</td><td class="them">N/A (never needed)</td><td class="us">"Inferred" tier <span class="badge inferred">lower-trust</span> — must round-trip, not be perfect</td></tr>
+        <tr><td>Correctness QA</td><td class="them">Manual review + test suites per language</td><td class="us">One hash comparison (Claim 2)</td></tr>
+      </table>
+      <p>Their two years were spent almost entirely on the <em>quality layer</em> of the writers. Our system needs none of it to be bidirectional: readers reverse-derive a <strong>good-enough</strong> IR (parse method signatures, read tool schemas) and mark it lower-trust. Dropping the perfect-fidelity requirement is the simplification that makes the whole thing tractable — and the hash test (Claim 2) replaces the QA budget. What remains is a neutral IR plus 2N thin adapters: small by construction. ∎</p>
+    </div>
+  </section>
+
+  <!-- ================= 4. RECIPE ================= -->
+  <section>
+    <div class="sec-label">§4 · Summary</div>
+    <h2>The recipe in three lines</h2>
+    <div class="recipe">
+      <h3>To make any tooling ecosystem bidirectional:</h3>
+      <ol>
+        <li>Choose a <b>neutral standard</b> as the hub (OpenAPI 3.1 + a tiny operation-list IR).</li>
+        <li>For every surface, write a <b>reader</b> (→ IR) and a <b>writer</b> (IR →).</li>
+        <li><b>Hash the IR</b> canonically so every round-trip is provable in one comparison.</li>
+      </ol>
+      <div class="result">→ any ↔ any conversions · N readers × M writers · built in weeks</div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTNOTE ================= -->
+  <p class="footnote"><b>Why didn't the big players do this?</b> Not because it's hard — because their business never needed the readers. Their customers arrive holding a spec; the reverse direction has no buyer in their model. The readers are a small amount of code that nobody was incentivized to write. That gap is the product.</p>
+
+</div>
+</body>
+</html>

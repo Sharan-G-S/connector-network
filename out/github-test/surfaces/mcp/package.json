@@ -1,0 +1,15 @@
+{
+  "name": "tasks-api-mcp",
+  "version": "2.0.0",
+  "description": "Tasks API MCP server (generated)",
+  "type": "module",
+  "bin": {
+    "tasks-api-mcp": "./server.mjs"
+  },
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

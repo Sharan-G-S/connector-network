@@ -1,0 +1,625 @@
+{
+  "irVersion": "cn-ir/1",
+  "title": "sdk-python",
+  "apiVersion": "0.0.0",
+  "servers": [],
+  "operations": [
+    {
+      "id": "op_create_comment",
+      "resource": "create_comment",
+      "method": "POST",
+      "path": "/create_comment",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "body",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_create_project",
+      "resource": "create_project",
+      "method": "POST",
+      "path": "/create_project",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_create_tag",
+      "resource": "create_tag",
+      "method": "POST",
+      "path": "/create_tag",
+      "input": [
+        {
+          "name": "name",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "color",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_create_task",
+      "resource": "create_task",
+      "method": "POST",
+      "path": "/create_task",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_delete_comment",
+      "resource": "delete_comment",
+      "method": "POST",
+      "path": "/delete_comment",
+      "input": [
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_delete_project",
+      "resource": "delete_project",
+      "method": "POST",
+      "path": "/delete_project",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_delete_tag",
+      "resource": "delete_tag",
+      "method": "POST",
+      "path": "/delete_tag",
+      "input": [
+        {
+          "name": "tag_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_delete_task",
+      "resource": "delete_task",
+      "method": "POST",
+      "path": "/delete_task",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_get_comment",
+      "resource": "get_comment",
+      "method": "POST",
+      "path": "/get_comment",
+      "input": [
+        {
+          "name": "comment_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_get_project",
+      "resource": "get_project",
+      "method": "POST",
+      "path": "/get_project",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_get_task",
+      "resource": "get_task",
+      "method": "POST",
+      "path": "/get_task",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_get_user",
+      "resource": "get_user",
+      "method": "POST",
+      "path": "/get_user",
+      "input": [
+        {
+          "name": "user_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_list_comments",
+      "resource": "list_comments",
+      "method": "POST",
+      "path": "/list_comments",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_list_projects",
+      "resource": "list_projects",
+      "method": "POST",
+      "path": "/list_projects",
+      "input": [
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_list_tags",
+      "resource": "list_tags",
+      "method": "POST",
+      "path": "/list_tags",
+      "input": [],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_list_tasks",
+      "resource": "list_tasks",
+      "method": "POST",
+      "path": "/list_tasks",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_list_users",
+      "resource": "list_users",
+      "method": "POST",
+      "path": "/list_users",
+      "input": [
+        {
+          "name": "limit",
+          "type": "number",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "cursor",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_update_project",
+      "resource": "update_project",
+      "method": "POST",
+      "path": "/update_project",
+      "input": [
+        {
+          "name": "project_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "name",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    },
+    {
+      "id": "op_update_task",
+      "resource": "update_task",
+      "method": "POST",
+      "path": "/update_task",
+      "input": [
+        {
+          "name": "task_id",
+          "type": "string",
+          "required": true,
+          "in": "body"
+        },
+        {
+          "name": "status",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        },
+        {
+          "name": "assignee_id",
+          "type": "string",
+          "required": false,
+          "in": "body"
+        }
+      ],
+      "output": [
+        {
+          "status": "200",
+          "type": "none",
+          "description": "derived response"
+        }
+      ],
+      "auth": "none",
+      "trust": "inferred",
+      "sourceType": "sdk",
+      "provenance": {
+        "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969"
+      }
+    }
+  ],
+  "schemas": {},
+  "hash": "sha256:99d9e429e8ebfa6ad8afa71d632312999af1f671a052e13cc4a9a1911d5c9ed3",
+  "provenance": {
+    "sourceKind": "sdk",
+    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-python",
+    "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969",
+    "pinnedAt": "2026-06-08T10:35:19.164Z",
+    "acquirer": "cn/0.1.0 (sdk)"
+  },
+  "diagnostics": [
+    {
+      "severity": "note",
+      "code": "acq.sdk.py_heuristic",
+      "message": "Python signatures parsed heuristically; verify required/optional flags"
+    },
+    {
+      "severity": "warning",
+      "code": "acq.sdk.inferred",
+      "message": "SDK contract reverse-derived from python; lower trust signal"
+    }
+  ]
+}

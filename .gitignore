@@ -1,0 +1,20 @@
+node_modules/
+dist/
+# out/ is committed: pipeline run outputs kept with the repo
+*.tsbuildinfo
+.DS_Store
+# Next.js build output + studio local database (users/runs/presets/secret)
+.next/
+apps/studio/.next/
+.data/
+apps/studio/.data/
+npm-debug.log*
+coverage/
+# local scratch / acquisition output
+.cn-tmp/
+# generated projection surfaces (regenerable via `cn project`)
+# surfaces/ committed with out/
+__pycache__/
+# secrets — never commit real tokens (.env.example is the tracked template)
+.env
+.env.local

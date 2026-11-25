@@ -1,0 +1,15 @@
+{
+  "name": "sdk-python-mcp",
+  "version": "0.0.0",
+  "description": "sdk-python MCP server (generated)",
+  "type": "module",
+  "bin": {
+    "sdk-python-mcp": "./server.mjs"
+  },
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

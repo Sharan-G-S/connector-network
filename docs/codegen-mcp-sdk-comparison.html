@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Connector Network — Deterministic Codegen &amp; MCP↔SDK Conversion Map</title>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<style>
+  :root{
+    --bg:#0f1117; --panel:#171a23; --panel2:#1e2230; --ink:#e6e9ef; --muted:#9aa3b2;
+    --line:#2a2f3d; --accent:#6ea8fe; --good:#46d39a; --warn:#f5c451; --bad:#f3697f;
+    --stain:#c792ea; --fern:#46d39a; --speak:#6ea8fe; --kiota:#f5c451; --proj:#ff8a65;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 24px 120px}
+  header.hero{padding:56px 24px 40px;background:
+     radial-gradient(1200px 400px at 20% -10%,rgba(110,168,254,.18),transparent),
+     radial-gradient(900px 400px at 90% -20%,rgba(199,146,234,.16),transparent);
+     border-bottom:1px solid var(--line)}
+  .hero-inner{max-width:1180px;margin:0 auto}
+  h1{font-size:34px;line-height:1.15;margin:0 0 10px;letter-spacing:-.5px}
+  h1 .sub{display:block;font-size:16px;color:var(--muted);font-weight:500;margin-top:8px}
+  h2{font-size:25px;margin:54px 0 14px;padding-bottom:8px;border-bottom:1px solid var(--line);letter-spacing:-.3px}
+  h3{font-size:19px;margin:30px 0 10px}
+  h4{font-size:16px;margin:20px 0 6px;color:var(--accent)}
+  p{margin:10px 0}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+  code{background:#0b0d13;border:1px solid var(--line);border-radius:5px;padding:1px 6px;font-size:13px;
+    font-family:"SF Mono", "JetBrains Mono",Menlo,Consolas,monospace;color:#cfd6e4}
+  pre{background:#0b0d13;border:1px solid var(--line);border-radius:10px;padding:16px 18px;overflow:auto;
+    font-family:"SF Mono","JetBrains Mono",Menlo,Consolas,monospace;font-size:13px;line-height:1.55}
+  .lead{font-size:17px;color:#cdd4e2}
+  .tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;
+    padding:3px 9px;border-radius:999px;border:1px solid var(--line);color:var(--muted);margin-right:6px}
+  .tag.good{color:var(--good);border-color:rgba(70,211,154,.4)}
+  .tag.warn{color:var(--warn);border-color:rgba(245,196,81,.4)}
+  .tag.bad{color:var(--bad);border-color:rgba(243,105,127,.4)}
+  .grid{display:grid;gap:18px}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:18px 0}
+  .panel.tl{border-left:4px solid var(--accent)}
+  .stain{border-left:4px solid var(--stain)} .fern{border-left:4px solid var(--fern)}
+  .speak{border-left:4px solid var(--speak)} .kiota{border-left:4px solid var(--kiota)}
+  .proj{border-left:4px solid var(--proj)}
+  table{width:100%;border-collapse:collapse;margin:16px 0;font-size:13.5px}
+  th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}
+  th{background:var(--panel2);font-weight:700;position:sticky;top:0}
+  tbody tr:nth-child(even){background:rgba(255,255,255,.018)}
+  .yes{color:var(--good);font-weight:700} .no{color:var(--bad);font-weight:700} .part{color:var(--warn);font-weight:700}
+  .mermaid{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:18px;margin:16px 0;text-align:center}
+  ul,ol{margin:8px 0 8px 4px;padding-left:22px}
+  li{margin:5px 0}
+  .callout{background:linear-gradient(180deg,rgba(110,168,254,.08),rgba(110,168,254,.02));
+    border:1px solid rgba(110,168,254,.3);border-radius:12px;padding:16px 20px;margin:18px 0}
+  .callout.warn{background:linear-gradient(180deg,rgba(245,196,81,.08),transparent);border-color:rgba(245,196,81,.35)}
+  .callout.good{background:linear-gradient(180deg,rgba(70,211,154,.08),transparent);border-color:rgba(70,211,154,.35)}
+  .callout b{color:var(--ink)}
+  nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px 24px;margin:26px 0;
+    columns:2;column-gap:32px}
+  nav.toc a{display:block;padding:3px 0;color:#c2cadb;font-size:14px}
+  nav.toc a:hover{color:var(--accent)}
+  .src{font-size:13px;color:var(--muted)}
+  .src a{color:#8fb6ff}
+  .pill-row{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+  .pill{font-size:12.5px;background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 11px}
+  .legend{font-size:12.5px;color:var(--muted);margin:6px 0 0}
+  .num{display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:50%;
+    background:var(--accent);color:#06101f;font-weight:800;font-size:13px;margin-right:8px}
+  footer{border-top:1px solid var(--line);margin-top:60px;padding-top:22px;color:var(--muted);font-size:13px}
+  .kvs{font-size:13.5px}
+  .kvs td:first-child{color:var(--muted);width:200px;font-weight:600}
+  .scorebar{height:8px;border-radius:6px;background:#0b0d13;border:1px solid var(--line);overflow:hidden;min-width:90px}
+  .scorebar > i{display:block;height:100%}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-inner">
+    <div class="pill-row">
+      <span class="tag good">Deterministic codegen</span>
+      <span class="tag">Stainless · Fern · Speakeasy · Kiota</span>
+      <span class="tag">MCP ↔ SDK</span>
+      <span class="tag warn">Pass<sup>k</sup> guarantee</span>
+    </div>
+    <h1>Deterministic Codegen &amp; MCP↔SDK Conversion — Research Map
+      <span class="sub">Comparing every major blog, paper &amp; talk against the <b>Connector Network</b> pipeline — and how to make it better.
+      Fact-checked sweep: 23 sources + 7 verified vendor/paper URLs.</span>
+    </h1>
+    <p class="lead">The product promise is <b>reliability at every run</b>: the same API doc, converted 3× (or k×),
+    must yield <b>byte-identical, spec-correct</b> SDKs, MCP servers, CLIs and docs. This document maps the
+    industry landscape onto your IR-based pipeline and gives a concrete engineering path to that guarantee.</p>
+  </div>
+</header>
+
+<div class="wrap">
+
+<nav class="toc">
+  <a href="#passk"># 1 · What "Pass^k" actually means</a>
+  <a href="#project"># 2 · The Connector Network pipeline (flowchart)</a>
+  <a href="#stainless"># 3 · Stainless (flowchart + blogs)</a>
+  <a href="#fern"># 4 · Fern (flowchart + blogs)</a>
+  <a href="#speakeasy"># 5 · Speakeasy (flowchart + blogs)</a>
+  <a href="#oss"># 6 · OpenAPI Generator &amp; Kiota</a>
+  <a href="#matrix"># 7 · The big comparison matrix</a>
+  <a href="#mcp"># 8 · MCP↔SDK conversion (both directions)</a>
+  <a href="#determinism"># 9 · Determinism engineering (RFC 8785, gen.lock)</a>
+  <a href="#papers"># 10 · Research papers &amp; what they mean for you</a>
+  <a href="#better"># 11 · How THIS project can be better (roadmap)</a>
+  <a href="#library"># 12 · Full resource library</a>
+</nav>
+
+<!-- ============================ 1 ============================ -->
+<h2 id="passk">1 · What "Pass<sup>k</sup>" actually means (and why it's the right target)</h2>
+<div class="panel tl">
+<p>The familiar metric <b>pass@k</b> comes from code-generation/LLM evals (e.g. HumanEval): it measures the
+probability that <i>at least one</i> of k sampled attempts passes — a <b>best-of-k</b> number. The MCP tool-use
+benchmark <b>MCPToolBench++</b> uses exactly this for execution success.
+<span class="src">(<a href="https://arxiv.org/abs/2508.07575">arXiv:2508.07575</a>, verified 3-0)</span></p>
+
+<p>Your requirement is the <b>opposite and stricter</b>. Call it <b>Pass<sup>k</sup></b> (all-k-agree):</p>
+<div class="callout"><b>Pass<sup>k</sup> holds for input S</b> ⟺ running the full pipeline on S, k times, in independent
+processes, yields <b>byte-identical</b> <code>ir.json</code> <b>and</b> byte-identical bytes for every file under
+<code>surfaces/</code>, <b>and</b> run-1 passes every standard conformance gate (tsc-clean / py_compile-clean /
+MCP <code>tools.json</code> re-derives / OpenAPI lints clean).</p>
+
+<p>Two halves you need <i>both</i> of:</p>
+<ul>
+  <li><b>Reproducibility</b> — k runs are identical. For a <i>deterministic</i> generator this is provable by
+  <b>rebuild-and-compare</b>, not statistics. Pass<sup>k</sup> collapses to "the function is pure."</li>
+  <li><b>Correctness</b> — each run is spec-valid. (k identical-but-wrong runs is <i>not</i> Pass<sup>k</sup>.)</li>
+</ul>
+<div class="callout warn"><b>Key insight:</b> the moment an LLM enters the hot path (naming, repair drafting),
+Pass<sup>k</sup> breaks unless you pin temperature-0 + cache decisions, or freeze a human-approved artifact.
+Your repair stage is deterministic/offline <i>today</i> — protect that seam.</div>
+</div>
+
+<!-- ============================ 2 ============================ -->
+<h2 id="project">2 · The Connector Network pipeline — your existing architecture</h2>
+<p>Your repo already implements the IR-fan-out model that Fern and Stainless are built on. A source climbs
+<b>once</b> to a content-hashed IR, which projects into every surface.</p>
+
+<div class="mermaid">
+flowchart LR
+  subgraph IN["4 inputs"]
+    A1["OpenAPI file/URL"]:::dec
+    A2["GitHub repo + PAT"]:::dec
+    A3["Existing SDK dir"]:::inf
+    A4["Existing MCP server"]:::inf
+  end
+  A1 & A2 & A3 & A4 --> ACQ["<b>acquire</b><br/>strip location · pin SHA<br/>bundle $refs · origin-blind"]:::stage
+  ACQ --> ING["<b>ingest</b><br/>adapt → assemble<br/>validate → repair"]:::stage
+  ING --> IR["<b>IR build</b><br/>sorted ops · stable IDs<br/><b>sha256 content hash</b>"]:::hash
+  IR --> P["<b>project</b>"]:::stage
+  P --> S1["SDK · TypeScript"]:::out
+  P --> S2["SDK · Python"]:::out
+  P --> S3["MCP server"]:::out
+  P --> S4["CLI"]:::out
+  P --> S5["Docs"]:::out
+  classDef dec fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff
+  classDef inf fill:#2a2433,stroke:#c792ea,color:#eadcff
+  classDef stage fill:#1e2230,stroke:#3a4255,color:#e6e9ef,stroke-width:1px
+  classDef hash fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+  classDef out fill:#241e16,stroke:#ff8a65,color:#ffe2d4
+</div>
+<p class="legend">Blue = <code>declared</code> trust · purple = <code>inferred</code> (reverse-derived) · green node = the
+content-hash pin that makes Pass<sup>k</sup> testable.</p>
+
+<div class="panel proj">
+<h4>What's already wired for determinism</h4>
+<table class="kvs">
+<tr><td>Canonical JSON</td><td>recursive key-sort → <code>packages/ir-core/src/canonicalize.ts</code> (RFC-8785-equivalent)</td></tr>
+<tr><td>Content identity</td><td><code>irHash = sha256(canonical)</code> → <code>packages/ir-core/src/hash.ts</code></td></tr>
+<tr><td>Stable operation IDs</td><td>derived from identity, not file position → <code>packages/ir-core/src/identity.ts</code></td></tr>
+<tr><td>Deterministic ordering</td><td>ops sorted <code>id→method→path</code> (<code>build.ts:31</code>); resources/models/ops sorted (<code>plan.ts:99</code>)</td></tr>
+<tr><td>Hash excludes noise</td><td>provenance/timestamps kept out of the hashed <code>core</code> (<code>build.ts:39</code>)</td></tr>
+<tr><td>MCP = sibling of SDK</td><td>both projected from the same IR → clean round-trip (<code>projection/src/mcp.ts</code>)</td></tr>
+</table>
+<p><b>Bottom line:</b> the IR layer is ~70% of a Pass<sup>k</sup> system. The gap is a render-stage equality
+harness + a few un-pinned entropy vectors — detailed in §9 and §11.</p>
+</div>
+
+<!-- ============================ 3 ============================ -->
+<h2 id="stainless">3 · Stainless</h2>
+<div class="panel stain">
+<p><span class="tag">closed-source</span><span class="tag">cloud</span> Powers the official OpenAI, Anthropic
+&amp; Cloudflare SDKs. Config = OpenAPI + a <code>stainless.yml</code> overlay. <b>7 languages.</b> Requires
+connectivity to vendor-hosted services (not air-gapped).</p>
+
+<h4>Architecture flowchart</h4>
+<div class="mermaid">
+flowchart LR
+  O["OpenAPI spec"]:::in --> CFG["stainless.yml<br/>(resources, names, pagination)"]:::cfg
+  CFG --> GEN["Stainless generator<br/>(cloud)"]:::st
+  GEN --> TS["TypeScript SDK"]:::out
+  GEN --> PY["Python / Go / Java / …"]:::out
+  TS --> MCP["<b>packages/mcp-server</b><br/>MCP = SDK subpackage"]:::mcp
+  MCP --> CM["<b>SDK 'code mode'</b><br/>2 tools: docs-search + run-TS-in-sandbox"]:::cm
+  classDef in fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff
+  classDef cfg fill:#2a2433,stroke:#c792ea,color:#eadcff
+  classDef st fill:#2a2433,stroke:#c792ea,color:#eadcff,stroke-width:2px
+  classDef out fill:#241e16,stroke:#ff8a65,color:#ffe2d4
+  classDef mcp fill:#16302a,stroke:#46d39a,color:#d6ffee
+  classDef cm fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+</div>
+
+<h4>The distinctive idea: <b>MCP from the SDK, not the spec</b></h4>
+<p>Stainless derives the MCP server as a <b>subpackage of the generated TypeScript SDK</b> and offers an
+<b>"SDK code mode"</b>: instead of one tool per endpoint, it exposes just two tools — <i>docs-search</i> and
+<i>execute-TypeScript-in-a-sandbox</i>. The agent writes code against the typed SDK; context no longer scales
+with API size. <span class="src">(verified 3-0, <a href="https://www.stainless.com/docs/mcp/">docs/mcp</a>)</span></p>
+<p>Their own benchmark on the Increase banking API reports <b>98% task completeness / 95% efficiency</b> for
+code mode vs other MCP configs — <i>vendor-reported, not independently reproduced</i>.</p>
+
+<div class="callout"><b>For you:</b> Stainless validates IR-fan-out, but couples MCP to TS-SDK internals.
+Your MCP is a <i>sibling</i> of the SDK off the IR — cleaner for SDK↔MCP round-tripping. You could optionally
+add a "code-mode" MCP <i>flavor</i> (2-tool) alongside your per-operation tools.json.</div>
+
+<h4>Blogs, docs &amp; talks</h4>
+<ul class="src">
+<li><a href="https://www.stainless.com/blog/sdk-code-mode">SDK code mode shows SotA accuracy &amp; performance</a> — the 98% eval</li>
+<li><a href="https://www.stainless.com/products/mcp/">Production-ready MCP servers (product page)</a></li>
+<li><a href="https://www.stainless.com/blog/from-api-to-mcp-a-practical-guide-for-developers/">API → MCP: step-by-step guide</a></li>
+<li><a href="https://www.stainless.com/blog/generate-mcp-servers-from-openapi-specs/">Generate MCP servers from OpenAPI specs</a></li>
+<li><a href="https://www.stainless.com/blog/lessons-from-openapi-to-mcp-server-conversion/">Lessons from OpenAPI→MCP conversion</a></li>
+<li><a href="https://www.stainless.com/blog/announcing-the-stainless-sdk-generator">Announcing the Stainless SDK generator</a></li>
+<li><a href="https://www.stainless.com/mcp/from-rest-api-to-mcp-server/">From REST API to MCP server (portal)</a></li>
+<li>🎥 <a href="https://www.youtube.com/watch?v=1YygZ62qsA0">Three Generations of MCP Server Design — Kevin Whinnery (talk)</a></li>
+</ul>
+</div>
+
+<!-- ============================ 4 ============================ -->
+<h2 id="fern">4 · Fern</h2>
+<div class="panel fern">
+<p><span class="tag good">open-source core</span><span class="tag">cloud</span> The architecture closest to yours:
+ingest → <b>own IR</b> → <b>containerized, version-pinned generators</b>. <b>9 languages.</b> Generates SDKs
+<i>and</i> docs <i>and</i> MCP from one definition. <b>Acquired by Postman, Jan 2026.</b></p>
+
+<h4>Architecture flowchart</h4>
+<div class="mermaid">
+flowchart LR
+  subgraph SRC["inputs"]
+    O1["OpenAPI"]:::in
+    O2["AsyncAPI"]:::in
+    O3["Protobuf / gRPC"]:::in
+    O4["OpenRPC"]:::in
+  end
+  O1 & O2 & O3 & O4 --> FIR["<b>Fern IR</b><br/>(normalized)"]:::fir
+  FC["fern.config.json<br/>generators.yml<br/>(pinned versions)"]:::cfg --> DOCK["Docker generators<br/>(hermetic, per-language)"]:::dock
+  FIR --> DOCK
+  DOCK --> S1["SDKs · 9 langs"]:::out
+  DOCK --> S2["Docs site + API Explorer"]:::out
+  DOCK --> S3["MCP server"]:::out
+  classDef in fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff
+  classDef fir fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+  classDef cfg fill:#2a2433,stroke:#c792ea,color:#eadcff
+  classDef dock fill:#1e2230,stroke:#46d39a,color:#e6e9ef,stroke-width:2px
+  classDef out fill:#241e16,stroke:#ff8a65,color:#ffe2d4
+</div>
+
+<div class="callout good"><b>The two Pass<sup>k</sup> levers to copy from Fern:</b>
+<b>(a)</b> pin the generator version in a config file (<code>generators.yml</code>), and
+<b>(b)</b> run generation in a <b>hermetic container</b> so OS / locale / toolchain can't leak in.
+You already have (a) within reach (a lockfile); (b) is your biggest untapped reproducibility lever.</div>
+
+<p><b>Verified vs refuted</b> <span class="src">(my sweep)</span>: Fern <span class="yes">does</span> ingest
+OpenAPI/AsyncAPI/Protobuf/OpenRPC and emit 8+ SDKs + MCP (3-0). It <span class="no">does not</span> ingest
+GraphQL, and "live-execution MCP" is unconfirmed (1-2 each) — treat Fern MCP as partly-managed/docs-oriented.</p>
+
+<h4>Blogs &amp; repo</h4>
+<ul class="src">
+<li><a href="https://github.com/fern-api/fern">github.com/fern-api/fern</a> — IR + <code>generators.yml</code> + Docker generators</li>
+<li><a href="https://buildwithfern.com/post/best-sdk-generation-tools-multi-language-api">Best SDK generation tools 2026</a></li>
+<li><a href="https://buildwithfern.com/post/cli-generator">Fern's CLI generator</a> — parallels your <code>cli</code> surface</li>
+<li><a href="https://buildwithfern.com/post/rust-sdk-generator">Rust SDK generator</a></li>
+<li><a href="https://buildwithfern.com/post/openapi-code-generation-enterprise">OpenAPI code generation for enterprise</a></li>
+<li><a href="https://buildwithfern.com/post/open-source-vs-closed-source-sdk-generators">Open-source vs closed-source SDK generators</a></li>
+<li><a href="https://buildwithfern.com/post/fern-vs-speakeasy-sdk-generator">Fern vs Speakeasy</a> · <a href="https://buildwithfern.com/post/stainless-pricing-alternatives">Stainless pricing &amp; alternatives</a></li>
+</ul>
+</div>
+
+<!-- ============================ 5 ============================ -->
+<h2 id="speakeasy">5 · Speakeasy</h2>
+<div class="panel speak">
+<p><span class="tag">commercial</span><span class="tag good">air-gapped binary</span> Ships as a standalone binary
+with <b>no cloud dependency</b> — the most reproducibility-friendly posture of the commercial three. 10+ targets.
+TS SDKs ship with a <b>single runtime dependency</b>.</p>
+
+<h4>Architecture + the lockfile that you should copy</h4>
+<div class="mermaid">
+flowchart LR
+  O["OpenAPI spec"]:::in --> EXT["x-speakeasy-* extensions<br/>(incl. x-speakeasy-mcp)"]:::cfg
+  EXT --> GEN["speakeasy binary<br/>(local / air-gapped)"]:::sp
+  GEN --> SDK["SDKs · 10+ targets"]:::out
+  GEN --> MCP["MCP server"]:::out
+  GEN --> LOCK["<b>gen.lock</b><br/>content checksum →<br/>auto patch-bump on change"]:::lock
+  LOCK -.gate.-> SDK
+  classDef in fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff
+  classDef cfg fill:#2a2433,stroke:#c792ea,color:#eadcff
+  classDef sp fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff,stroke-width:2px
+  classDef out fill:#241e16,stroke:#ff8a65,color:#ffe2d4
+  classDef lock fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+</div>
+
+<div class="callout good"><b>Copy this:</b> <code>gen.lock</code> tracks a <b>content checksum</b> of generated
+output; a changed checksum triggers a patch-version bump. This is exactly the per-surface lock you want —
+a hash gate that answers "did the output legitimately change?" <span class="src">(verified 3-0,
+<a href="https://www.speakeasy.com/docs/sdks/manage/versioning">versioning docs</a>)</span></div>
+
+<p>MCP-from-OpenAPI via the <b><code>x-speakeasy-mcp</code></b> extension (annotate operations → tools), distilled
+from 50 production servers.</p>
+
+<h4>Blogs &amp; docs</h4>
+<ul class="src">
+<li><a href="https://www.speakeasy.com/docs/sdks/manage/versioning">gen.lock &amp; versioning</a> — the checksum model</li>
+<li><a href="https://www.speakeasy.com/blog/generating-mcp-from-openapi-lessons-from-50-production-servers">Generating MCP from OpenAPI: lessons from 50 production servers</a></li>
+<li><a href="https://www.speakeasy.com/docs/model-context-protocol">MCP docs</a></li>
+<li><a href="https://www.speakeasy.com/blog/comparison-sdk-generators-openapi">Choosing an SDK generator: Speakeasy vs Stainless vs Fern vs APIMatic vs OpenAPI Generator</a></li>
+<li><a href="https://www.speakeasy.com/blog/choosing-an-sdk-vendor">Choosing an SDK vendor</a> · <a href="https://www.speakeasy.com/blog/speakeasy-vs-stainless">Speakeasy vs Stainless</a></li>
+</ul>
+</div>
+
+<!-- ============================ 6 ============================ -->
+<h2 id="oss">6 · OpenAPI Generator &amp; Kiota — the determinism cautionary tale</h2>
+<div class="panel kiota">
+<p><b>Kiota</b> (Microsoft, OSS) is the most important external data point for your Pass<sup>k</sup> goal —
+it proves <b>codegen is non-deterministic by default</b>.</p>
+<div class="callout warn"><b>Kiota issue #2442:</b> identical input produced <b>different output across runs</b>.
+Root cause = <b>randomized hash/dictionary iteration order</b>. Fixed by sorting collections before emit.
+<span class="src">(verified 3-0, <a href="https://github.com/microsoft/kiota/issues/2442">#2442</a>)</span><br/>
+<b>Refuted:</b> that idempotency was an <i>advertised design goal</i> — it was a bug they fixed. <b>Lesson: the
+#1 cause of codegen non-determinism in the wild is unordered map/set/dict iteration — not logic bugs.</b></div>
+<p><b>OpenAPI Generator</b> (OSS, templated, many languages): use it as a <b>conformance oracle</b> — "does our
+output for surface X resemble the community-standard shape?" — not as a determinism reference; the same
+hash-ordering and timestamp pitfalls apply per template.</p>
+</div>
+
+<!-- ============================ 7 ============================ -->
+<h2 id="matrix">7 · The big comparison matrix</h2>
+<p>Scored for the dimensions that matter to <b>your</b> reliability goal. <span class="src">Sources:
+Speakeasy &amp; Fern comparison blogs, vendor docs, my verified sweep.</span></p>
+<table>
+<thead><tr>
+  <th>Dimension</th><th>Stainless</th><th>Fern</th><th>Speakeasy</th><th>OpenAPI Gen</th><th>Kiota</th>
+  <th style="background:#241e16">Connector Network (you)</th>
+</tr></thead>
+<tbody>
+<tr><td><b>Model</b></td><td>Closed, cloud</td><td>OSS core, cloud</td><td>Commercial, local binary</td><td>OSS</td><td>OSS (MS)</td><td class="proj">OSS, local CLI</td></tr>
+<tr><td><b>Intermediate Representation</b></td><td>Internal</td><td class="yes">Yes (own IR)</td><td>Internal</td><td>Template ctx</td><td>Internal model</td><td class="yes proj">Yes — <b>content-hashed</b> IR</td></tr>
+<tr><td><b>Content hash of artifact</b></td><td>?</td><td>?</td><td class="yes">gen.lock checksum</td><td class="no">No</td><td class="no">No</td><td class="yes proj">irHash (sha256)</td></tr>
+<tr><td><b>Air-gapped / hermetic</b></td><td class="no">No</td><td class="part">Docker (local mode)</td><td class="yes">Yes (binary)</td><td class="yes">Yes</td><td class="yes">Yes</td><td class="part proj">Local; not yet containerized</td></tr>
+<tr><td><b>Version pinning</b></td><td>Managed</td><td class="yes">generators.yml</td><td class="yes">CLI/lock</td><td>Maven/npm</td><td>CLI</td><td class="part proj">Not yet (add cn.lock)</td></tr>
+<tr><td><b>Documented determinism</b></td><td class="part">Implied</td><td class="part">Implied</td><td class="yes">Checksum-gated</td><td class="part">Varies</td><td class="no">Bug-fixed (#2442)</td><td class="yes proj">Hash-pinned IR + sorted emit</td></tr>
+<tr><td><b>SDK languages</b></td><td>7</td><td>9</td><td>10+</td><td>50+</td><td>~10</td><td class="proj">TS, Python (+CLI, docs)</td></tr>
+<tr><td><b>MCP generation</b></td><td class="yes">From SDK (code mode)</td><td class="yes">From definition</td><td class="yes">x-speakeasy-mcp</td><td class="no">No (3rd-party)</td><td class="no">No</td><td class="yes proj">Sibling of SDK from IR</td></tr>
+<tr><td><b>MCP→spec round-trip</b></td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes proj"><b>Yes</b> (acquire --mcp)</td></tr>
+<tr><td><b>Reverse-derive SDK→IR</b></td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="no">No</td><td class="yes proj"><b>Yes</b> (introspect)</td></tr>
+<tr><td><b>Pass<sup>k</sup> verify harness</b></td><td class="no">—</td><td class="no">—</td><td class="part">checksum</td><td class="no">—</td><td class="no">—</td><td class="part proj">to build (§9/§11)</td></tr>
+</tbody>
+</table>
+
+<div class="callout good"><b>Where you already beat the field:</b> MCP and SDK are <b>co-equal projections of one
+IR</b>, so both <code>SDK→IR→MCP</code> and <code>MCP→IR→SDK</code> round-trip. No vendor proves round-trip
+fidelity — it's your architectural moat. Protect it with a test (§11).</div>
+
+<!-- ============================ 8 ============================ -->
+<h2 id="mcp">8 · MCP ↔ SDK conversion — both directions</h2>
+
+<h3>8a · OpenAPI / SDK → MCP</h3>
+<p>The universal mapping rule, used by openapi-mcp-generator, Speakeasy and FastMCP alike:</p>
+<table>
+<thead><tr><th>OpenAPI / SDK concept</th><th>→ MCP concept</th><th>Notes</th></tr></thead>
+<tbody>
+<tr><td><code>GET /users/{id}</code> (read)</td><td>Resource (or read-only Tool)</td><td>idempotent reads → Resources</td></tr>
+<tr><td><code>POST/PUT/DELETE</code> (mutation)</td><td><b>Tool</b> (e.g. <code>create_user</code>)</td><td>side-effecting actions → Tools</td></tr>
+<tr><td>params + requestBody schema</td><td>Tool <b><code>inputSchema</code></b> (JSON Schema)</td><td>often via <code>json-schema-to-zod</code></td></tr>
+<tr><td>2xx response schema</td><td>Tool result shape</td><td>structured output</td></tr>
+<tr><td>operation summary/description</td><td>Tool description</td><td>watch for DCI — see §10</td></tr>
+</tbody>
+</table>
+<div class="mermaid">
+flowchart LR
+  SP["OpenAPI op<br/>or SDK method"]:::in --> W["walk operations<br/>(getToolsFromOpenApi)"]:::s
+  W --> SCH["params+body →<br/>JSON Schema inputSchema<br/>(json-schema-to-zod)"]:::s
+  SCH --> T["MCP Tool def"]:::out
+  W --> R["GET → Resource"]:::out
+  T & R --> SRV["MCP server<br/>(stdio / HTTP)"]:::srv
+  classDef in fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff
+  classDef s fill:#1e2230,stroke:#6ea8fe,color:#e6e9ef
+  classDef out fill:#241e16,stroke:#ff8a65,color:#ffe2d4
+  classDef srv fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+</div>
+<p class="src">Refs: <a href="https://github.com/harsha-iiiv/openapi-mcp-generator">openapi-mcp-generator</a> ·
+<a href="https://www.scalekit.com/blog/map-api-into-mcp-tool-definitions">How to map REST APIs to MCP tools</a> ·
+<a href="https://gofastmcp.com/tutorials/rest-api">FastMCP: connect an LLM to a REST API</a> ·
+<a href="https://learn.microsoft.com/en-us/azure/api-management/export-rest-mcp-server">Azure API Management: expose REST as MCP</a></p>
+
+<h3>8b · MCP → SDK (round-trip back to a spec)</h3>
+<p>The under-served direction — and the one your repo already does. Read advertised tools → map each
+<code>inputSchema</code> back to an operation → rebuild the IR → project an SDK.</p>
+<div class="mermaid">
+flowchart LR
+  M["MCP server<br/>(manifest / stdio)"]:::in --> TL["list tools<br/>(advertised)"]:::s
+  TL --> MAP["inputSchema → operation<br/>(params/body/response)"]:::s
+  MAP --> IR["<b>IR</b> (same builder)"]:::hash
+  IR --> SDK["SDK · CLI · docs"]:::out
+  IR -. "re-project MCP" .-> M2["MCP'"]:::out
+  classDef in fill:#2a2433,stroke:#c792ea,color:#eadcff
+  classDef s fill:#1e2230,stroke:#c792ea,color:#e6e9ef
+  classDef hash fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+  classDef out fill:#241e16,stroke:#ff8a65,color:#ffe2d4
+</div>
+<div class="callout good"><b>Your differentiator, testable today:</b>
+<code>cn acquire --mcp "node surfaces/mcp/server.mjs" --command</code> re-derives tools. Add an assertion
+<code>IR.hash == IR'.hash</code> across the round-trip and you can <i>prove</i> a fidelity claim no vendor makes.</div>
+
+<p class="src">Anthropic's <a href="https://www.anthropic.com/engineering/code-execution-with-mcp">Code execution
+with MCP</a> reports a 150K→2K token workflow (98.7% reduction) by presenting MCP servers as code APIs rather
+than raw tool lists — the principle behind Stainless "code mode." (Anthropic-reported.)</p>
+
+<!-- ============================ 9 ============================ -->
+<h2 id="determinism">9 · Determinism engineering — the standards toolkit</h2>
+
+<h3>9a · Canonicalization: RFC 8785 (JCS)</h3>
+<p>The formal standard your <code>canonicalize.ts</code> approximates: byte-identical JSON via <b>recursive
+lexicographic (UTF-16 code-unit) sorting of object keys</b> + canonical number formatting + minimal whitespace.
+<span class="src">(verified 3-0, <a href="https://www.rfc-editor.org/rfc/rfc8785.html">RFC 8785</a>)</span>
+Naming the standard turns "we sort keys" into "we are JCS-compliant."</p>
+
+<h3>9b · Reproducible-builds checklist</h3>
+<div class="pill-row">
+  <span class="pill">✅ sort all collections before emit</span>
+  <span class="pill">✅ strip/normalize timestamps</span>
+  <span class="pill">⚠️ fix locale (localeCompare → 'en-US' or code-unit)</span>
+  <span class="pill">⚠️ sort every readdir()</span>
+  <span class="pill">⚠️ pin tool + dep versions</span>
+  <span class="pill">⛔ ban Math.random / UUID / Date in emit</span>
+</div>
+<p class="src">Source: <a href="https://reproducible-builds.org/docs/stable-outputs/">reproducible-builds.org — stable outputs</a></p>
+
+<h3>9c · Determinism vectors — handled vs at-risk in your repo</h3>
+<table>
+<thead><tr><th>Vector</th><th>Risk</th><th>Status</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>Object-key order in IR</td><td>hash drift</td><td class="yes">sorted</td><td>formalize as RFC 8785</td></tr>
+<tr><td>Operation order</td><td>diff churn</td><td class="yes">sorted id→method→path</td><td>—</td></tr>
+<tr><td>Map/Set iteration in projection</td><td><b>Kiota #2442 class</b></td><td class="yes">plan.ts sorts</td><td>audit every generator</td></tr>
+<tr><td>readdir() order (SDK/GitHub acquire)</td><td>input drift</td><td class="part">unverified</td><td><b>sort all dir listings</b></td></tr>
+<tr><td>Timestamps in output</td><td>byte drift</td><td class="part">banner has no date</td><td>grep <code>Date</code>/<code>toISOString</code> in surfaces</td></tr>
+<tr><td>Math.random / UUID</td><td>byte drift</td><td class="part">—</td><td>lint-ban in projection/</td></tr>
+<tr><td>localeCompare locale</td><td>order differs by $LANG</td><td class="part">used in plan.ts</td><td><b>pin locale or code-unit sort</b></td></tr>
+<tr><td>Remote $ref / spec fetch</td><td>content drift</td><td class="yes">acquire pins SHA</td><td>also snapshot $ref targets</td></tr>
+<tr><td>Generator version</td><td>output changes per release</td><td class="no">unpinned</td><td>add cn.lock</td></tr>
+<tr><td>LLM repair drafter (future)</td><td>inherently non-det</td><td class="yes">offline today</td><td>keep frozen-artifact seam</td></tr>
+</tbody>
+</table>
+<div class="callout warn"><b>Locale is the sleeper bug.</b> <code>localeCompare</code> without a fixed locale can
+reorder identifiers between a dev machine and CI. Pin it (<code>localeCompare(b,'en-US')</code>) or sort by raw
+UTF-16 (<code>a&lt;b</code>) to match RFC 8785 and your own <code>canonicalize.ts</code>.</div>
+
+<h3>9d · The verify harness + the cn.lock artifact</h3>
+<div class="mermaid">
+flowchart TB
+  S["fixture S"]:::in --> L{"run k≥3×<br/>fresh process each"}:::s
+  L --> H1["collect irHash"]:::s
+  L --> H2["sha256 of every<br/>surface file"]:::s
+  H1 --> A1{"all k irHashes<br/>equal?"}:::g
+  H2 --> A2{"all k surface<br/>hash-trees equal?"}:::g
+  A1 -->|no| FAIL["❌ non-determinism<br/>regression"]:::bad
+  A2 -->|no| FAIL
+  A1 -->|yes| C["run-1 conformance:<br/>tsc / py_compile /<br/>mcp re-derive / lint"]:::s
+  A2 -->|yes| C
+  C --> G{"== committed<br/>golden (cn.lock)?"}:::g
+  G -->|yes| PASS["✅ Pass^k holds"]:::good
+  G -->|no| REV["⚠️ intended change?<br/>review &amp; re-freeze lock"]:::warn
+  classDef in fill:#1e2a40,stroke:#6ea8fe,color:#dbe7ff
+  classDef s fill:#1e2230,stroke:#6ea8fe,color:#e6e9ef
+  classDef g fill:#2a2433,stroke:#c792ea,color:#eadcff
+  classDef good fill:#16302a,stroke:#46d39a,color:#d6ffee,stroke-width:2px
+  classDef warn fill:#2a2616,stroke:#f5c451,color:#fff0cc
+  classDef bad fill:#2a1620,stroke:#f3697f,color:#ffd6df
+</div>
+<pre>// cn.lock — committed; gates "did output legitimately change?"  (Speakeasy gen.lock pattern)
+{
+  "irHash": "sha256:…",                    // from ir-core/hash.ts (exists)
+  "generatorVersion": "cn-ir/1 + projection@&lt;pkg&gt;",  // pin BOTH IR schema and generator
+  "canonicalization": "RFC8785",
+  "surfaces": {
+    "sdk/typescript": "sha256:…",  "sdk/python": "sha256:…",
+    "mcp": "sha256:…",  "cli": "sha256:…",  "docs": "sha256:…"
+  }
+}</pre>
+<p><b>Cross-environment matrix</b> is the real Pass<sup>k</sup> test: run the k-loop across different OS / Node
+version / <code>$LANG</code> / CPU. That's where latent locale/readdir/timestamp bugs surface.</p>
+
+<!-- ============================ 10 ============================ -->
+<h2 id="papers">10 · Research papers &amp; what they mean for your correctness gate</h2>
+<div class="grid">
+<div class="panel">
+<h4>MCPToolBench++ — measuring MCP tool-use (Pass@K)</h4>
+<p>1,500 queries across 40+ tool categories over 4,000+ MCP servers; metrics = AST, DAG accuracy, <b>Pass@K</b>,
+Tool-Call Success Rate. Pass@K here measures end-to-end execution success (valid params, correct results).</p>
+<p><b>Use it as:</b> the <i>correctness</i> half of your gate — once a surface is reproducible, run generated MCP
+tools against a benchmark like this to confirm they actually execute correctly.
+<span class="src"><a href="https://arxiv.org/abs/2508.07575">arXiv:2508.07575</a> ·
+<a href="https://arxiv.org/pdf/2508.07575">PDF</a></span></p>
+</div>
+<div class="panel">
+<h4>DCIChecker — Description-Code Inconsistency in MCP servers</h4>
+<p>Finds tool <i>descriptions</i> that don't match what the <i>code</i> does (overclaimed/undeclared/misclaimed
+functionality, undeclared side effects). Direct-Reverse-Arbitration prompting; reports ~96.7% F1 detecting DCI,
+which affects ~9.93% of real tools. <i>(paper-reported)</i></p>
+<p><b>Use it as:</b> a lint gate on your <code>mcp.ts</code> output — your tool descriptions are projected from
+IR <code>summary/description</code>, so a DCI check ensures the generated description matches the generated handler.
+<span class="src"><a href="https://arxiv.org/abs/2606.04769">arXiv:2606.04769</a></span></p>
+</div>
+<div class="panel">
+<h4>Anthropic — Code execution with MCP</h4>
+<p>Presenting MCP servers as code APIs (agent writes code) instead of raw tool lists cut a 150K-token workflow
+to ~2K (98.7%↓). The architectural basis for Stainless "code mode."</p>
+<p><b>Use it as:</b> design rationale if you add a 2-tool "code-mode" MCP flavor to your projection.
+<span class="src"><a href="https://www.anthropic.com/engineering/code-execution-with-mcp">anthropic.com/engineering/code-execution-with-mcp</a> ·
+<a href="https://www.anthropic.com/engineering/advanced-tool-use">Advanced tool use</a></span></p>
+</div>
+</div>
+
+<!-- ============================ 11 ============================ -->
+<h2 id="better">11 · How THIS project can be better — gap analysis &amp; roadmap</h2>
+<p>Ordered by leverage. Each maps to concrete files in your repo.</p>
+<table>
+<thead><tr><th>#</th><th>Action</th><th>Borrowed from</th><th>Where in repo</th><th>Effort</th></tr></thead>
+<tbody>
+<tr><td>1</td><td><b><code>cn verify</code> + k-run vitest harness</b> — assert all k irHashes &amp; surface-hash-trees equal, then run-1 passes conformance. Turns Pass<sup>k</sup> into a CI gate.</td><td>—  (your differentiator)</td><td>new <code>packages/cli</code> cmd + <code>projection/*.test.ts</code></td><td>M</td></tr>
+<tr><td>2</td><td><b><code>cn.lock</code> / <code>surfaces.lock</code></b> — per-surface content checksums; gate intended vs accidental change.</td><td>Speakeasy gen.lock</td><td>new, reuse <code>ir-core/hash.ts</code></td><td>S</td></tr>
+<tr><td>3</td><td><b>Pin sorts &amp; ban entropy</b> — fix localeCompare locale, sort every readdir, lint-ban Date/Math.random/UUID in projection.</td><td>Kiota #2442 / reproducible-builds</td><td><code>plan.ts</code>, <code>acquire/adapters/*</code>, <code>projection/*</code></td><td>S</td></tr>
+<tr><td>4</td><td><b>Formalize canonicalization as RFC 8785</b> (number formatting + UTF-16 sort); name the standard in output.</td><td>RFC 8785</td><td><code>ir-core/canonicalize.ts</code></td><td>S</td></tr>
+<tr><td>5</td><td><b>Hermetic generation</b> — pin Node+deps; optionally containerize <code>cn project</code> for the cross-env guarantee.</td><td>Fern Docker generators</td><td>repo tooling / CI</td><td>M</td></tr>
+<tr><td>6</td><td><b>Round-trip tests</b> — <code>SDK→IR→MCP→IR'</code> assert <code>IR.hash==IR'.hash</code>. Protect the symmetry moat.</td><td>—  (your differentiator)</td><td><code>projection/*.test.ts</code>, <code>acquire/mcp-client.ts</code></td><td>M</td></tr>
+<tr><td>7</td><td><b>DCI lint on MCP output</b> — check generated tool description matches generated handler.</td><td>DCIChecker</td><td><code>projection/mcp.ts</code> + test</td><td>M</td></tr>
+<tr><td>8</td><td><b>MCP execution correctness</b> — run generated tools against a MCPToolBench++-style harness.</td><td>MCPToolBench++</td><td>integration tests</td><td>L</td></tr>
+<tr><td>9</td><td><b>Optional "code-mode" MCP flavor</b> — 2-tool (docs-search + run-SDK) variant alongside per-op tools.</td><td>Stainless / Anthropic</td><td><code>projection/mcp.ts</code></td><td>L</td></tr>
+<tr><td>10</td><td><b>LLM seam discipline</b> — if repair goes LLM: temperature-0 + cache decisions as a frozen artifact; never un-cached in the Pass<sup>k</sup> path.</td><td>Pass<sup>k</sup> definition</td><td><code>ingest/repair.ts</code></td><td>S</td></tr>
+</tbody>
+</table>
+<div class="callout"><b>Sequencing:</b> #1–#4 are the determinism core — do them first; together they make "same doc 3× →
+identical output" a <i>tested guarantee</i>, not a hope. #5–#6 harden it across environments and protect the
+round-trip moat. #7–#9 raise correctness/parity with the commercial tools. #10 future-proofs the LLM seam.</div>
+
+<!-- ============================ 12 ============================ -->
+<h2 id="library">12 · Full resource library</h2>
+
+<h3>Vendors &amp; tools</h3>
+<table>
+<thead><tr><th>Resource</th><th>Type</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td>Stainless — SDK code mode (98% eval)</td><td>blog</td><td><a href="https://www.stainless.com/blog/sdk-code-mode">link</a></td></tr>
+<tr><td>Stainless — MCP product / docs</td><td>docs</td><td><a href="https://www.stainless.com/docs/mcp/">docs</a> · <a href="https://www.stainless.com/products/mcp/">product</a></td></tr>
+<tr><td>Stainless — API→MCP guide</td><td>blog</td><td><a href="https://www.stainless.com/blog/from-api-to-mcp-a-practical-guide-for-developers/">link</a></td></tr>
+<tr><td>Stainless — Generate MCP from OpenAPI</td><td>blog</td><td><a href="https://www.stainless.com/blog/generate-mcp-servers-from-openapi-specs/">link</a></td></tr>
+<tr><td>Stainless — Lessons OpenAPI→MCP</td><td>blog</td><td><a href="https://www.stainless.com/blog/lessons-from-openapi-to-mcp-server-conversion/">link</a></td></tr>
+<tr><td>Stainless — SDK generator announce</td><td>blog</td><td><a href="https://www.stainless.com/blog/announcing-the-stainless-sdk-generator">link</a></td></tr>
+<tr><td>Three Generations of MCP Server Design — Whinnery</td><td>🎥 video</td><td><a href="https://www.youtube.com/watch?v=1YygZ62qsA0">YouTube</a></td></tr>
+<tr><td>Fern — repo (IR, generators.yml)</td><td>repo</td><td><a href="https://github.com/fern-api/fern">GitHub</a></td></tr>
+<tr><td>Fern — best SDK tools 2026</td><td>blog</td><td><a href="https://buildwithfern.com/post/best-sdk-generation-tools-multi-language-api">link</a></td></tr>
+<tr><td>Fern — CLI generator</td><td>blog</td><td><a href="https://buildwithfern.com/post/cli-generator">link</a></td></tr>
+<tr><td>Fern — OSS vs closed-source generators</td><td>blog</td><td><a href="https://buildwithfern.com/post/open-source-vs-closed-source-sdk-generators">link</a></td></tr>
+<tr><td>Speakeasy — gen.lock &amp; versioning</td><td>docs</td><td><a href="https://www.speakeasy.com/docs/sdks/manage/versioning">link</a></td></tr>
+<tr><td>Speakeasy — MCP from 50 prod servers</td><td>blog</td><td><a href="https://www.speakeasy.com/blog/generating-mcp-from-openapi-lessons-from-50-production-servers">link</a></td></tr>
+<tr><td>Speakeasy — 5-generator comparison</td><td>blog</td><td><a href="https://www.speakeasy.com/blog/comparison-sdk-generators-openapi">link</a></td></tr>
+<tr><td>API Coding — 5 SDK generators compared</td><td>blog</td><td><a href="https://apicoding.com/five-sdk-generators-compared-speakeasy-stainless-fern-apimatic-and-openapi-generator/">link</a></td></tr>
+<tr><td>Kiota — non-determinism issue #2442</td><td>repo issue</td><td><a href="https://github.com/microsoft/kiota/issues/2442">link</a></td></tr>
+<tr><td>openapi-mcp-generator</td><td>repo</td><td><a href="https://github.com/harsha-iiiv/openapi-mcp-generator">GitHub</a></td></tr>
+<tr><td>FastMCP — REST API → MCP</td><td>docs</td><td><a href="https://gofastmcp.com/tutorials/rest-api">link</a></td></tr>
+<tr><td>Scalekit — map REST APIs to MCP tools</td><td>blog</td><td><a href="https://www.scalekit.com/blog/map-api-into-mcp-tool-definitions">link</a></td></tr>
+<tr><td>Azure API Management — expose REST as MCP</td><td>docs</td><td><a href="https://learn.microsoft.com/en-us/azure/api-management/export-rest-mcp-server">link</a></td></tr>
+</tbody>
+</table>
+
+<h3>Standards, theory &amp; research papers</h3>
+<table>
+<thead><tr><th>Resource</th><th>Type</th><th>Link</th></tr></thead>
+<tbody>
+<tr><td>RFC 8785 — JSON Canonicalization Scheme</td><td>RFC</td><td><a href="https://www.rfc-editor.org/rfc/rfc8785.html">link</a> · <a href="https://www.rfc-editor.org/info/rfc8785/">info</a></td></tr>
+<tr><td>Reproducible Builds — stable outputs</td><td>standard</td><td><a href="https://reproducible-builds.org/docs/stable-outputs/">link</a></td></tr>
+<tr><td>json-canon — strict RFC 8785 walkthrough</td><td>blog</td><td><a href="https://dev.to/lenny321/json-canon-a-strict-rfc-8785-implementation-in-go-for-deterministic-json-3mfg">link</a></td></tr>
+<tr><td>Anthropic — Code execution with MCP (98.7%↓)</td><td>eng blog</td><td><a href="https://www.anthropic.com/engineering/code-execution-with-mcp">link</a></td></tr>
+<tr><td>Anthropic — Advanced tool use</td><td>eng blog</td><td><a href="https://www.anthropic.com/engineering/advanced-tool-use">link</a></td></tr>
+<tr><td>MCPToolBench++ — MCP tool-use benchmark (Pass@K)</td><td>paper</td><td><a href="https://arxiv.org/abs/2508.07575">arXiv:2508.07575</a></td></tr>
+<tr><td>DCIChecker — Description-Code Inconsistency in MCP</td><td>paper</td><td><a href="https://arxiv.org/abs/2606.04769">arXiv:2606.04769</a></td></tr>
+<tr><td>Generation-reliability framing (pass@k context)</td><td>paper</td><td><a href="https://arxiv.org/pdf/2510.04265">arXiv:2510.04265</a></td></tr>
+</tbody>
+</table>
+
+<div class="callout warn"><b>Honesty notes.</b> Vendor metrics (Stainless 98% / 95%, Speakeasy dependency counts,
+Anthropic 98.7%) are <i>self-reported</i>, not independently reproduced. Paper figures (DCI 9.93%, F1 96.7%,
+MCPToolBench++ scale) are author-reported. No public source <i>measured</i> byte-identical reproducibility of
+Stainless/Fern output across runs — their Pass<sup>k</sup> is <i>inferred from architecture</i>. <b>You can be the
+one who proves it for your own pipeline</b> via the §9d harness.</div>
+
+<footer>
+  <p>Connector Network · Deterministic Codegen &amp; MCP↔SDK Conversion Map · built 2026-06-09.
+  Companion markdown: <code>docs/determinism-and-codegen-map.md</code>. Flowcharts render via Mermaid (CDN).</p>
+</footer>
+</div>
+
+<script>
+  mermaid.initialize({
+    startOnLoad:true,
+    theme:'dark',
+    themeVariables:{ fontFamily:'-apple-system,Segoe UI,Roboto,sans-serif', fontSize:'14px',
+      lineColor:'#5b6479', primaryColor:'#1e2230', primaryBorderColor:'#3a4255', primaryTextColor:'#e6e9ef' },
+    flowchart:{ curve:'basis', nodeSpacing:42, rankSpacing:54, htmlLabels:true, useMaxWidth:true }
+  });
+</script>
+</body>
+</html>

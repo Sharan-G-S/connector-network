@@ -1,0 +1,15 @@
+{
+  "name": "sdk-typescript-mcp",
+  "version": "0.0.0",
+  "description": "sdk-typescript MCP server (generated)",
+  "type": "module",
+  "bin": {
+    "sdk-typescript-mcp": "./server.mjs"
+  },
+  "scripts": {
+    "start": "node server.mjs"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

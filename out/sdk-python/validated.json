@@ -1,0 +1,981 @@
+{
+  "type": "sdk",
+  "document": {
+    "openapi": "3.1.0",
+    "info": {
+      "title": "sdk-python",
+      "version": "0.0.0",
+      "x-cn-note": "reverse-derived from sdk; paths and verbs are synthesized"
+    },
+    "paths": {
+      "/list_projects": {
+        "post": {
+          "operationId": "list_projects",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "number"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/create_project": {
+        "post": {
+          "operationId": "create_project",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/get_project": {
+        "post": {
+          "operationId": "get_project",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "project_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/update_project": {
+        "post": {
+          "operationId": "update_project",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "project_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/delete_project": {
+        "post": {
+          "operationId": "delete_project",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "project_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/list_tasks": {
+        "post": {
+          "operationId": "list_tasks",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "assignee_id": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/create_task": {
+        "post": {
+          "operationId": "create_task",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "project_id": {
+                      "type": "string"
+                    },
+                    "title": {
+                      "type": "string"
+                    },
+                    "assignee_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "project_id",
+                    "title"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/get_task": {
+        "post": {
+          "operationId": "get_task",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "task_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "task_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/update_task": {
+        "post": {
+          "operationId": "update_task",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "status": {
+                      "type": "string"
+                    },
+                    "assignee_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "task_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/delete_task": {
+        "post": {
+          "operationId": "delete_task",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "task_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "task_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/list_comments": {
+        "post": {
+          "operationId": "list_comments",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "limit": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "task_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/create_comment": {
+        "post": {
+          "operationId": "create_comment",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "task_id": {
+                      "type": "string"
+                    },
+                    "body": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "task_id",
+                    "body"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/get_comment": {
+        "post": {
+          "operationId": "get_comment",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "comment_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "comment_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/delete_comment": {
+        "post": {
+          "operationId": "delete_comment",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "comment_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "comment_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/list_users": {
+        "post": {
+          "operationId": "list_users",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "limit": {
+                      "type": "number"
+                    },
+                    "cursor": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/get_user": {
+        "post": {
+          "operationId": "get_user",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "user_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "user_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/list_tags": {
+        "post": {
+          "operationId": "list_tags",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/create_tag": {
+        "post": {
+          "operationId": "create_tag",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "color": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      },
+      "/delete_tag": {
+        "post": {
+          "operationId": "delete_tag",
+          "x-cn-derived": true,
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "tag_id": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "tag_id"
+                  ]
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "derived response"
+            }
+          }
+        }
+      }
+    },
+    "x-cn-source": "sdk",
+    "x-cn-trust": "inferred"
+  },
+  "provenance": {
+    "sourceKind": "sdk",
+    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-python",
+    "pinnedAt": "2026-06-08T10:35:19.164Z",
+    "contentHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969",
+    "trust": "inferred",
+    "acquirer": "cn/0.1.0 (sdk)"
+  },
+  "diagnostics": [
+    {
+      "severity": "note",
+      "code": "acq.sdk.py_heuristic",
+      "message": "Python signatures parsed heuristically; verify required/optional flags"
+    },
+    {
+      "severity": "warning",
+      "code": "acq.sdk.inferred",
+      "message": "SDK contract reverse-derived from python; lower trust signal"
+    }
+  ],
+  "proposals": [
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1list_projects/post",
+      "reason": "POST /list_projects has no summary or description",
+      "suggestion": "Describe what POST /list_projects does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1list_projects/post",
+      "reason": "operationId \"list_projects\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"listProjects\".",
+      "value": "listProjects",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1create_project/post",
+      "reason": "POST /create_project has no summary or description",
+      "suggestion": "Describe what POST /create_project does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1create_project/post",
+      "reason": "operationId \"create_project\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"createProject\".",
+      "value": "createProject",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1get_project/post",
+      "reason": "POST /get_project has no summary or description",
+      "suggestion": "Describe what POST /get_project does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1get_project/post",
+      "reason": "operationId \"get_project\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"getProject\".",
+      "value": "getProject",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1update_project/post",
+      "reason": "POST /update_project has no summary or description",
+      "suggestion": "Describe what POST /update_project does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1update_project/post",
+      "reason": "operationId \"update_project\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"updateProject\".",
+      "value": "updateProject",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1delete_project/post",
+      "reason": "POST /delete_project has no summary or description",
+      "suggestion": "Describe what POST /delete_project does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1delete_project/post",
+      "reason": "operationId \"delete_project\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"deleteProject\".",
+      "value": "deleteProject",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1list_tasks/post",
+      "reason": "POST /list_tasks has no summary or description",
+      "suggestion": "Describe what POST /list_tasks does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1list_tasks/post",
+      "reason": "operationId \"list_tasks\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"listTasks\".",
+      "value": "listTasks",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1create_task/post",
+      "reason": "POST /create_task has no summary or description",
+      "suggestion": "Describe what POST /create_task does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1create_task/post",
+      "reason": "operationId \"create_task\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"createTask\".",
+      "value": "createTask",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1get_task/post",
+      "reason": "POST /get_task has no summary or description",
+      "suggestion": "Describe what POST /get_task does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1get_task/post",
+      "reason": "operationId \"get_task\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"getTask\".",
+      "value": "getTask",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1update_task/post",
+      "reason": "POST /update_task has no summary or description",
+      "suggestion": "Describe what POST /update_task does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1update_task/post",
+      "reason": "operationId \"update_task\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"updateTask\".",
+      "value": "updateTask",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1delete_task/post",
+      "reason": "POST /delete_task has no summary or description",
+      "suggestion": "Describe what POST /delete_task does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1delete_task/post",
+      "reason": "operationId \"delete_task\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"deleteTask\".",
+      "value": "deleteTask",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1list_comments/post",
+      "reason": "POST /list_comments has no summary or description",
+      "suggestion": "Describe what POST /list_comments does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1list_comments/post",
+      "reason": "operationId \"list_comments\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"listComments\".",
+      "value": "listComments",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1create_comment/post",
+      "reason": "POST /create_comment has no summary or description",
+      "suggestion": "Describe what POST /create_comment does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1create_comment/post",
+      "reason": "operationId \"create_comment\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"createComment\".",
+      "value": "createComment",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1get_comment/post",
+      "reason": "POST /get_comment has no summary or description",
+      "suggestion": "Describe what POST /get_comment does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1get_comment/post",
+      "reason": "operationId \"get_comment\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"getComment\".",
+      "value": "getComment",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1delete_comment/post",
+      "reason": "POST /delete_comment has no summary or description",
+      "suggestion": "Describe what POST /delete_comment does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1delete_comment/post",
+      "reason": "operationId \"delete_comment\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"deleteComment\".",
+      "value": "deleteComment",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1list_users/post",
+      "reason": "POST /list_users has no summary or description",
+      "suggestion": "Describe what POST /list_users does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1list_users/post",
+      "reason": "operationId \"list_users\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"listUsers\".",
+      "value": "listUsers",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1get_user/post",
+      "reason": "POST /get_user has no summary or description",
+      "suggestion": "Describe what POST /get_user does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1get_user/post",
+      "reason": "operationId \"get_user\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"getUser\".",
+      "value": "getUser",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1list_tags/post",
+      "reason": "POST /list_tags has no summary or description",
+      "suggestion": "Describe what POST /list_tags does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1list_tags/post",
+      "reason": "operationId \"list_tags\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"listTags\".",
+      "value": "listTags",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1create_tag/post",
+      "reason": "POST /create_tag has no summary or description",
+      "suggestion": "Describe what POST /create_tag does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1create_tag/post",
+      "reason": "operationId \"create_tag\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"createTag\".",
+      "value": "createTag",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.missing_description",
+      "op": "set_description",
+      "target": "#/paths/~1delete_tag/post",
+      "reason": "POST /delete_tag has no summary or description",
+      "suggestion": "Describe what POST /delete_tag does and what it returns.",
+      "severity": "note",
+      "source": "heuristic"
+    },
+    {
+      "code": "repair.ugly_operation_id",
+      "op": "rename",
+      "target": "#/paths/~1delete_tag/post",
+      "reason": "operationId \"delete_tag\" is not lowerCamelCase",
+      "suggestion": "Rename operationId to \"deleteTag\".",
+      "value": "deleteTag",
+      "severity": "note",
+      "source": "heuristic"
+    }
+  ],
+  "valid": true
+}
