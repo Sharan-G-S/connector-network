@@ -596,7 +596,7 @@
   },
   "provenance": {
     "sourceKind": "sdk",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-python",
+    "origin": "samples/sdk-python",
     "pinnedAt": "2026-06-08T10:35:19.164Z",
     "contentHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969",
     "trust": "inferred",

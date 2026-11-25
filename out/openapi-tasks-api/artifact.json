@@ -963,7 +963,7 @@
   },
   "provenance": {
     "sourceKind": "openapi",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\openapi\\tasks-api.yaml",
+    "origin": "samples/openapi/tasks-api.yaml",
     "pinnedAt": "2026-06-08T10:35:19.065Z",
     "contentHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b",
     "trust": "declared",

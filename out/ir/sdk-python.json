@@ -605,7 +605,7 @@
   "hash": "sha256:99d9e429e8ebfa6ad8afa71d632312999af1f671a052e13cc4a9a1911d5c9ed3",
   "provenance": {
     "sourceKind": "sdk",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-python",
+    "origin": "samples/sdk-python",
     "artifactHash": "sha256:a0717f88f5071f6aa0110fe200ccbc1516928f3deae0e7a729b7f93390e83969",
     "pinnedAt": "2026-06-08T10:35:19.164Z",
     "acquirer": "cn/0.1.0 (sdk)"

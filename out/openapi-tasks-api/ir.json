@@ -990,7 +990,7 @@
   "hash": "sha256:28794483c9ea84f3ae3cc0bf69c93ecb2fd20ce7aff4014fbbf73cd62403a95e",
   "provenance": {
     "sourceKind": "openapi",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\openapi\\tasks-api.yaml",
+    "origin": "samples/openapi/tasks-api.yaml",
     "artifactHash": "sha256:2557b91c39e3009bba05942c3f6e58a4ea62748b1e03cce87db6659bcf24d20b",
     "pinnedAt": "2026-06-08T10:35:19.065Z",
     "acquirer": "cn/0.1.0 (openapi)"

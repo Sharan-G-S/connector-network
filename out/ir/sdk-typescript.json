@@ -624,7 +624,7 @@
   "hash": "sha256:614781b838f78cbf5a8a7fc1898582e9cbcaaefc4e82572c5182a22491c53daf",
   "provenance": {
     "sourceKind": "sdk",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\sdk-typescript",
+    "origin": "samples/sdk-typescript",
     "artifactHash": "sha256:833e7e38cf30c45824b18d3030cd0eb6e2a7cdd8d72142d4e19762e973aea320",
     "pinnedAt": "2026-06-08T10:35:19.115Z",
     "acquirer": "cn/0.1.0 (sdk)"

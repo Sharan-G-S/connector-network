@@ -636,7 +636,7 @@
   "hash": "sha256:14b922e2f4477fd6bcafe5a3619a5136c004a5a2f93d523fde653eb45e02d716",
   "provenance": {
     "sourceKind": "mcp",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\mcp\\tasks-tools.json",
+    "origin": "samples/mcp/tasks-tools.json",
     "artifactHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e",
     "pinnedAt": "2026-06-08T10:35:19.203Z",
     "acquirer": "cn/0.1.0 (mcp)"

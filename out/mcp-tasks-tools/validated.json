@@ -622,7 +622,7 @@
   },
   "provenance": {
     "sourceKind": "mcp",
-    "origin": "D:\\Deni\\Mr.Tech\\Experience\\Internships\\September Platforms\\Production\\BAP Product\\Code\\API Hub\\samples\\mcp\\tasks-tools.json",
+    "origin": "samples/mcp/tasks-tools.json",
     "pinnedAt": "2026-06-08T10:35:19.203Z",
     "contentHash": "sha256:ec986ad8a7e185e52f47c589c1a7f40e2269f193953d3994bc6a34e3457a041e",
     "trust": "inferred",
